@@ -1,0 +1,57 @@
+<footer class="position-relative z-1 bg-white">
+
+    <section class="container-fluid text-primary">
+        <div class="d-flex align-items-center justify-content-between p-4">
+            <div><strong>{{ site.title }}</strong> - {{ site.slogan }}</div>
+            <div><a href="../impressum" class="text-primary text-decoration-none">Impressum</a> | <a href="../datenschutz" class="text-primary text-decoration-none">Datenschutz</a></div>
+        </div>
+    </section>  
+
+    <section class="bg-primary text-white">
+        <div class="container-fluid pt-2 pb-2">
+            <div class="m-4">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p class="m-0 mb-1 fs-6"><span class="fw-bold">Jetzt folgen</span>:</p>
+                        <div class="social-icon-wrapper text-white">
+                            {% include socialIcons.html %}
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <!-- Navigation -->
+                        <nav class="d-flex flex-column align-items-end">
+                            <a href="/" class="fs-6 text-decoration-none text-white fw-bold">Startseite</a>
+                            <a href="/co2-emissionen" class="fs-6 text-decoration-none text-white">CO₂-Emissionen</a>
+                            <a href="/ueber-uns" class="fs-6 text-decoration-none text-white">Über Uns</a>
+                            <a href="/blog" class="fs-6 text-decoration-none text-white">Blog</a>
+                            <a href="/kontakt" class="fs-6 text-decoration-none text-white">Kontakt</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+</footer>
+
+<section class="bg-light position-fixed w-100 disclaimer-wrapper z-0 start-0 end-0 bottom-0">
+    <div class="container-fluid pt-1 pb-1">
+        <div class="p-4 text-secondary text-center">
+            <div class="row">
+                <div class="col-md-8 offset-md-2 fw-light">
+                    <small>Bei dieser Webseite handelt es sich um eine <span class="fw-regular">fiktive Beispielseite mit frei erfundenen Namen und Daten.</span> <br/>&copy; 2025 <a href="https://bureau.wundersee.com" target="_blank" class="text-secondary">Andreas Wundersee</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- React + ReactDOM + Babel + Bootstrap (lokal aus libs/) -->
+<script src="/libs/js/react.development.js"></script>
+<script src="/libs/js/react-dom.development.js"></script>
+<script src="/libs/js/bootstrap.bundle.min.js"></script>
+
+<!-- Javascript -->
+<script src="/assets/js/scripts.js"></script>
+<script src="/assets/js/react.compiled.js"></script>
