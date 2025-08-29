@@ -47,4 +47,4 @@ no-cache.rb
 *.log
 *.tmp
 *.swp
-*.bak
+*.bakgitpush.sh

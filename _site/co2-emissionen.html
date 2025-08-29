@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="de">
+
+  <head>
+    
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>EarthCircle</title>
+
+	<link rel="stylesheet" href="/libs/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/libs/css/montserrat.css" />
+	<link rel="stylesheet" href="/libs/css/cousine.css" />
+	<link rel="stylesheet" href="/libs/css/phosphor.css" />
+	<link rel="stylesheet" href="/assets/css/style.css" />
+	
+	<link rel="icon" href="/assets/img/template/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/assets/img/template/favicon-32x32.png" type="image/png" sizes="32x32">
+	<link rel="icon" href="/assets/img/template/favicon-16x16.png" type="image/png" sizes="16x16">
+	<link rel="apple-touch-icon" href="/assets/img/template/apple-touch-icon.png" sizes="180x180">
+	
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body class="co2-emissionen">
+  
+    <!-- Header -->
+  <header class="text-primary p-3">
+	<div class="header-elem-wrapper container-fluid d-flex justify-content-between align-items-center">
+		<a href="/" class="d-flex align-items-center m-2 text-decoration-none text-primary">
+			<img src="/assets/img/template/logo-primary.svg" alt="Logo" class="me-2 ms-2 header-logo">
+			<h1 class="mb-0 fw-bold">EarthCircle</h1>
+		</a>
+		<div  class="d-flex">
+			<!-- Navigation -->
+			<nav class="d-flex justify-content-between align-items-center">
+				<a href="/co2-emissionen" class="nav-link text-primary m-4 co2-emissionen">CO₂-Emissionen</a>
+				<a href="/ueber-uns" class="nav-link text-primary m-4 ueber-uns">Über Uns</a>
+				<a href="/blog" class="nav-link text-primary m-4 blog">Blog</a>
+				<a href="/kontakt" class="nav-link text-primary m-4 kontakt">Kontakt</a>
+				<div class="social-wrapper d-flex align-items-center">
+    <a href="#instagram" class="text-decoration-none"><i class="ph ph-instagram-logo"></i></a>
+    <a href="#x" class="text-decoration-none"><i class="ph ph-x-logo"></i></a>
+    <a href="#linkedin" class="text-decoration-none"><i class="ph ph-linkedin-logo"></i></a>
+</div>
+			</nav>
+		</div>
+	</div>
+  </header>
+
+  <main class="z-2 position-relative bg-white">
+    <section class="hero-banner hero-emissionen d-flex">
+    <div class="c-banner d-none d-lg-block z-1 position-absolute top-0 bottom-0 start-0 end-0"></div>
+    <div class="bg-banner position-absolute top-0 bottom-0 start-0 end-0 bg-black bg-opacity-50 z-0"></div>
+    <div class="container text-white position-relative align-items-center justify-content-end z-2">
+        <div class="row">
+            <div class="col-lg-7 offset-lg-4">
+                <h1 class="display-3 fw-bold">Es ist noch ein weiter Weg zum Kreislauf</h1>
+                <p class="lead mb-4">Wir wollen nicht mit dem Finger auf die Wirtschaft zeigen, sondern Potentiale für eine Kreislaufwirschaft aufzeigen.</p>
+                <a href="/ueber-uns" class="btn btn-primary btn-lg">Was Du tun kannst</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-dark text-white pt-4 pb-4 mb-5">
+    <div class="container-fluid pb-4">
+        <div class="row d-flex align-items-end pb-4">
+            <div class="col-sm-6">
+                <div class="m-4">
+                    <h2 class="fw-bold mb-5">Ist eine Kreislaufwirtschaft überhaupt realisierbar?</h2>
+                    <p class="lead"><span class="fw-bold">Ja – wenn Daten genutzt werden und wir Wissen teilen,</span> schaffen wir die Grundlage dafür, dass Wirtschaft, Politik und Gesellschaft gemeinsam den Schritt in Richtung Kreislaufwirtschaft gehen.</p>
+                    <p>Nachhaltige Transformation gelingt nur, wenn die Wirtschaft aktiv eingebunden ist. Genau hier setzt unsere NGO an: Wir werten Daten aus, um Potenziale sichtbar zu machen und Entscheidungsgrundlagen für Unternehmen zu schaffen.</p>
+                    <p>Die 36 größten Emittenten stoßen deshalb so enorme Mengen CO₂ aus, weil sie in erster Linie für die weltweite Nachfrage nach Energie, Rohstoffen und Materialien produzieren. <strong>Ihre Emissionen spiegeln somit nicht nur ihr eigenes Handeln wider, sondern den globalen Bedarf, den sie bedienen.</strong> Daher sollten sie nicht isoliert betrachtet werden, sondern vielmehr als exemplarische Stellvertreter für ganze Wertschöpfungsketten und Konsummuster verstanden werden.</p>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="m-4">
+                    <span class="overshoot-date fw-bold"><span class="fw-light fs-1">~</span><span class="counter" data-number="40">0</span>%</span>
+                    <p class="mt-3">der globalen CO₂-Emissionen<br />stammen von 36 Unternehmen.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+
+async function loadData() {
+    const response = await fetch('../assets/data/data.json');
+    const data = await response.json();
+    return data;
+}
+
+// Funktion um braune Farbvarianten zu generieren
+function generateBrownColors(n) {
+    const colors = [];
+    for (let i = 0; i < n; i++) {
+    // Basisfarbe #ce7a00 -> HSL: 33°, 100%, 40%
+    // Wir variieren Helligkeit 35%-60% und Sättigung 80%-100%
+    const hue = 33; // braun
+    const saturation = 80 + Math.random() * 20;
+    const lightness = 35 + Math.random() * 25;
+    colors.push(`hsl(${hue}, ${saturation}%, ${lightness}%)`);
+    }
+    return colors;
+}
+
+async function createCharts() {
+    const data = await loadData();
+
+    // --- Unternehmen ---
+    const companyLabels = data.map(d => d.company);
+    const companyPercentages = data.map(d => d.percentage);
+
+    // Rest der Welt hinzufügen
+    const sumCompany = companyPercentages.reduce((a,b) => a+b, 0);
+    companyLabels.push("Rest der Welt");
+    companyPercentages.push(100 - sumCompany);
+
+    const companyColors = [...generateBrownColors(companyLabels.length - 1), 'lightgray'];
+
+    const ctx1 = document.getElementById('companyChart').getContext('2d');
+    new Chart(ctx1, {
+    type: 'doughnut',
+    data: {
+        labels: companyLabels,
+        datasets: [{
+        label: 'Anteil an globalen CO₂-Emissionen',
+        data: companyPercentages,
+        backgroundColor: companyColors
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { 
+        legend: { display: false },
+        tooltip: { enabled: false }
+        }
+    }
+    });
+
+    // --- Länder ---
+    const countryData = {};
+    data.forEach(d => {
+    if (!countryData[d.country]) countryData[d.country] = 0;
+    countryData[d.country] += d.percentage;
+    });
+
+    const countryLabels = Object.keys(countryData);
+    const countryPercentages = Object.values(countryData);
+
+    // Rest der Welt hinzufügen
+    const sumCountry = countryPercentages.reduce((a,b) => a+b, 0);
+    countryLabels.push("Rest der Welt");
+    countryPercentages.push(100 - sumCountry);
+
+    const countryColors = [...generateBrownColors(countryLabels.length - 1), 'lightgray'];
+
+    const ctx2 = document.getElementById('countryChart').getContext('2d');
+    new Chart(ctx2, {
+    type: 'doughnut',
+        data: {
+          labels: countryLabels,
+          datasets: [{
+            label: 'Anteil an globalen CO₂-Emissionen nach Land',
+            data: countryPercentages,
+            backgroundColor: countryColors
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { 
+            legend: { display: false },
+            tooltip: { enabled: false }
+           }
+        }
+      });
+    }
+
+    createCharts();   
+
+</script>
+
+<section class="container-fluid pt-4 mb-4 pb-4">
+    <div class="m-4">
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-12"><h2 class="fw-bold">CO₂-Emissionen globaler Unternehmen</h2></div>
+            <div class="col-sm-6 pt-4 pb-4">
+                <p class="lead">Die folgenden Daten stammen aus dem <span class="fw-bold">Carbon Majors Report 2023</span> und beziehen sich ausschließlich auf die 36 größten globalen Unternehmen, da diese zusammen fast 40 % der weltweiten CO₂-Emissionen verursachen.</p>
+                <p>Die Daten verdeutlichen die global vernetzte Produktion und machen sichtbar, dass die Emissionen nicht allein den produzierenden Ländern zugerechnet werden können. Vielmehr zeigt die Statistik, wie groß unser gemeinsamer Energie- und Ressourcenbedarf weltweit ist und welche Rolle die internationalen Wertschöpfungsketten dabei spielen.</p>
+            </div>    
+        </div>
+        <div class="row mb-5">
+            <div class="col-sm-6 col-md-3 offset-md-2">
+                <canvas id="companyChart"></canvas>
+            </div>
+            <div class="col-sm-6 col-md-3 offset-md-2">
+                <canvas id="countryChart"></canvas>
+            </div>
+        </div>      
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+                <div class="row mb-3 align-items-center pt-5">  
+                    <div class="col-md-9">
+                    <label for="searchInput" class="form-label visually-hidden">Suche nach Firma oder Land</label>
+                    <input id="searchInput" type="text" class="form-control" placeholder="Nach Firma oder Land suchen" />
+                    </div>
+                    <div class="col-md-2 offset-md-1 col-lg-3 offset-lg-0">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle w-100" type="button" id="sortDropdownButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        Sortierung ändern
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="sortDropdownButton">
+                        <li><button class="dropdown-item" data-key="country" data-dir="asc" type="button">Land aufsteigend</button></li>
+                        <li><button class="dropdown-item" data-key="country" data-dir="desc" type="button">Land absteigend</button></li>
+                        <li><button class="dropdown-item" data-key="company" data-dir="asc" type="button">Unternehmen aufsteigend</button></li>
+                        <li><button class="dropdown-item" data-key="company" data-dir="desc" type="button">Unternehmen absteigend</button></li>
+                        <li><button class="dropdown-item" data-key="emissions" data-dir="asc" type="button">CO₂-Emissionen aufsteigend</button></li>
+                        <li><button class="dropdown-item" data-key="emissions" data-dir="desc" type="button">CO₂-Emissionen absteigend</button></li>
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+                <div id="table" class="table-responsive"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="hero-banner hero-support d-flex mt-5 align-items-center">
+    <div class="c-banner d-none d-lg-block z-1 position-absolute top-0 bottom-0 start-0 end-0"></div>
+    <div class="bg-banner position-absolute top-0 bottom-0 start-0 end-0 bg-black bg-opacity-50 z-0"></div>
+    <div class="container text-white position-relative z-2">
+        <div class="row">
+        <div class="col-lg-7 offset-lg-4">
+            <h1 class="display-3 fw-bold">Wir wollen eine Symbiose mit der Natur</h1>
+            <p class="lead mb-4">Wir wollen die globalen Ressourcen nutzen und nicht ausnutzen: mit einer funktionierenden Kreislaufwirtschaft.</p>
+            <a href="/ueber-uns" class="btn btn-dark btn-lg">Unterstütze uns dabei</a>
+        </div>
+        </div>
+    </div>
+</section>
+
+  </main>
+
+  <footer class="position-relative z-1 bg-white">
+
+    <section class="container-fluid text-primary">
+        <div class="d-flex align-items-center justify-content-between p-4">
+            <div><strong>EarthCircle</strong> - Für einen geschlossenen Kreislauf der Natur</div>
+            <div><a href="../impressum" class="text-primary text-decoration-none">Impressum</a> | <a href="../datenschutz" class="text-primary text-decoration-none">Datenschutz</a></div>
+        </div>
+    </section>  
+
+    <section class="bg-primary text-white">
+        <div class="container-fluid pt-2 pb-2">
+            <div class="m-4">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p class="m-0 mb-1 fs-6"><span class="fw-bold">Jetzt folgen</span>:</p>
+                        <div class="social-icon-wrapper text-white">
+                            <div class="social-wrapper d-flex align-items-center">
+    <a href="#instagram" class="text-decoration-none"><i class="ph ph-instagram-logo"></i></a>
+    <a href="#x" class="text-decoration-none"><i class="ph ph-x-logo"></i></a>
+    <a href="#linkedin" class="text-decoration-none"><i class="ph ph-linkedin-logo"></i></a>
+</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <!-- Navigation -->
+                        <nav class="d-flex flex-column align-items-end">
+                            <a href="/" class="fs-6 text-decoration-none text-white fw-bold">Startseite</a>
+                            <a href="/co2-emissionen" class="fs-6 text-decoration-none text-white">CO₂-Emissionen</a>
+                            <a href="/ueber-uns" class="fs-6 text-decoration-none text-white">Über Uns</a>
+                            <a href="/blog" class="fs-6 text-decoration-none text-white">Blog</a>
+                            <a href="/kontakt" class="fs-6 text-decoration-none text-white">Kontakt</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+</footer>
+
+<section class="bg-light position-fixed w-100 disclaimer-wrapper z-0 start-0 end-0 bottom-0">
+    <div class="container-fluid pt-1 pb-1">
+        <div class="p-4 text-secondary text-center">
+            <div class="row">
+                <div class="col-md-8 offset-md-2 fw-light">
+                    <small>Bei dieser Webseite handelt es sich um eine <span class="fw-regular">fiktive Beispielseite mit frei erfundenen Namen und Daten.</span> <br/>&copy; 2025 <a href="https://bureau.wundersee.com" target="_blank" class="text-secondary">Andreas Wundersee</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- React + ReactDOM + Babel + Bootstrap (lokal aus libs/) -->
+<script src="/libs/js/react.development.js"></script>
+<script src="/libs/js/react-dom.development.js"></script>
+<script src="/libs/js/bootstrap.bundle.min.js"></script>
+
+<!-- Javascript -->
+<script src="/assets/js/scripts.js"></script>
+<script src="/assets/js/react.compiled.js"></script>
+
+
+</body>
+</html>
