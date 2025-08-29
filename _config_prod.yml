@@ -19,6 +19,12 @@ defaults:
       layout: default
       permalink: "/:basename/"
 
+  - scope:
+      path: "_posts"
+    values:
+      layout: post
+      permalink: "/blog/:basename/"
+
 # Spezieller Fall für 404.md
   - scope:
       path: "404.md"

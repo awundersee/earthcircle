@@ -1,7 +1,7 @@
 ---
 layout: legal
-title: Impressum
-permalink: impressum
+title: Datenschutz
+permalink: datenschutz
 ---
 
 # Datenschutzerklärung
@@ -9,11 +9,11 @@ permalink: impressum
 ## 1. Verantwortlicher
 Verantwortlich für die Datenverarbeitung auf dieser Website:
 
-**Max Mustermann**  
-Musterstraße 123  
-12345 Musterstadt  
+**Andreas Wundersee**  
+Schöndorffstraße 4 
+40229 Düsseldorf  
 Deutschland  
-E-Mail: info@musterprojekt.de  
+hello@wundersee.com  
 
 ---
 

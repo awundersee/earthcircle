@@ -11,7 +11,7 @@ permalink: ueber-uns
         <div class="row">
             <div class="col-lg-7 offset-lg-4">
                 <h1 class="display-3 fw-bold">Gemeinsam können wir es schaffen</h1>
-                <p class="lead mb-4">Wir sind eine Gruppe mit dezentral organisierten Akteuren aus der Gesellschaft, Politik und Wirtschaft. Wenn Du Dich einbringen möchtest, <a href="../kontakt" class="text-white">melde Dich bei uns.</a></p>
+                <p class="lead mb-4">Wir sind eine Gruppe mit dezentral organisierten Akteuren aus der Gesellschaft, Politik und Wirtschaft. Wenn Du Dich einbringen möchtest, <a href="{{ site.baseurl }}/kontakt" class="text-white">melde Dich bei uns.</a></p>
                 <a href="#inner-circle" class="btn btn-primary btn-lg">Werde Teil des Inner Circle</a>
             </div>
         </div>
@@ -147,7 +147,7 @@ permalink: ueber-uns
                 <div class="col-sm-4 offset-lg-1"> 
                     <h2 class="fw-bold primary-on-fade mb-4">Jetzt Mitglied werden</h2>
                     <p class="lead"><span class="fw-bold primary-on-fade">Eine Mitgliedschaft kostet 50 Euro pro Jahr</span> und Du hilfst uns damit die Arbeit unseres Vereins zu finanzieren.</p>
-                    <p>Wenn Du das Formular abschickst, senden Dir wir das Antragsformular automatisch zu. In der Mail ist auch ein Link, wenn Du es direkt online ausfüllen möchtest. Du kannst unser <a href="/kontakt#kontaktformular" class="text-dark">aber auch gerne Mail kontaktieren.</a></p>
+                    <p>Wenn Du das Formular abschickst, senden Dir wir das Antragsformular automatisch zu. In der Mail ist auch ein Link, wenn Du es direkt online ausfüllen möchtest. Du kannst unser <a href="{{ site.baseurl }}/kontakt#kontaktformular" class="text-dark">aber auch gerne Mail kontaktieren.</a></p>
                     <p><strong>Das Absenden des Formulars bedeutet nicht, dass Du automatisch Mitglied wirst.</strong></p>
                 </div>
             </div>

@@ -11,8 +11,8 @@ permalink: /kontakt/
         <div class="row">
             <div class="col-lg-7 offset-lg-4">
                 <h1 class="display-3 fw-bold">Wir sind digital und analog erreichbar</h1>
-                <p class="lead mb-4">Schreib uns per Mail, über das Kontaktformular, über die sozialen Netzwerke, postalisch oder <span class="fw-bold">schick uns eine Brieftaube.</span> Wenn Du Mitglied werden möchtest, kannst Du <a href="/ueber-uns#inner-circle" class="text-white">alle relevanten Informationen per Mail anfordern.</a></p>
-                <a href="/ueber-uns#inner-circle" class="btn btn-primary btn-lg">Jetzt Mitglied werden</a>
+                <p class="lead mb-4">Schreib uns per Mail, über das Kontaktformular, über die sozialen Netzwerke, postalisch oder <span class="fw-bold">schick uns eine Brieftaube.</span> Wenn Du Mitglied werden möchtest, kannst Du <a href="{{ site.baseurl }}/ueber-uns#inner-circle" class="text-white">alle relevanten Informationen per Mail anfordern.</a></p>
+                <a href="{{ site.baseurl }}/ueber-uns#inner-circle" class="btn btn-primary btn-lg">Jetzt Mitglied werden</a>
             </div>
         </div>
     </div>

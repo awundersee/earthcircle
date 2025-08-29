@@ -12,7 +12,7 @@ permalink: co2-emissionen
             <div class="col-lg-7 offset-lg-4">
                 <h1 class="display-3 fw-bold">Es ist noch ein weiter Weg zum Kreislauf</h1>
                 <p class="lead mb-4">Wir wollen nicht mit dem Finger auf die Wirtschaft zeigen, sondern Potentiale für eine Kreislaufwirschaft aufzeigen.</p>
-                <a href="/ueber-uns" class="btn btn-primary btn-lg">Was Du tun kannst</a>
+                <a href="{{ site.baseurl }}/ueber-uns" class="btn btn-primary btn-lg">Was Du tun kannst</a>
             </div>
         </div>
     </div>
@@ -201,7 +201,7 @@ async function createCharts() {
         <div class="col-lg-7 offset-lg-4">
             <h1 class="display-3 fw-bold">Wir wollen eine Symbiose mit der Natur</h1>
             <p class="lead mb-4">Wir wollen die globalen Ressourcen nutzen und nicht ausnutzen: mit einer funktionierenden Kreislaufwirtschaft.</p>
-            <a href="/ueber-uns" class="btn btn-dark btn-lg">Unterstütze uns dabei</a>
+            <a href="{{ site.baseurl }}/ueber-uns" class="btn btn-dark btn-lg">Unterstütze uns dabei</a>
         </div>
         </div>
     </div>

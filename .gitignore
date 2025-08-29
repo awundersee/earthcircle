@@ -20,10 +20,10 @@ package-log.json
 # -----------------------------
 # Jekyll spezifische Dateien
 # -----------------------------
-_site/              # generierter Output (niemals committen!)
-.sass-cache/        # Cache von Sass
-.jekyll-cache/      # Cache von Jekyll >= 4
-.jekyll-metadata    # Build-Metadaten
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
 Gemfile
 Gemfile.lock
 
@@ -47,4 +47,5 @@ no-cache.rb
 *.log
 *.tmp
 *.swp
-*.bakgitpush.sh
+*.bak
+gitpush.sh

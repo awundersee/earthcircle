@@ -3,7 +3,7 @@
     <section class="container-fluid text-primary">
         <div class="d-flex align-items-center justify-content-between p-4">
             <div><strong>{{ site.title }}</strong> - {{ site.slogan }}</div>
-            <div><a href="../impressum" class="text-primary text-decoration-none">Impressum</a> | <a href="../datenschutz" class="text-primary text-decoration-none">Datenschutz</a></div>
+            <div><a href="{{ site.baseurl }}/impressum" class="text-primary text-decoration-none">Impressum</a> | <a href="{{ site.baseurl }}/datenschutz" class="text-primary text-decoration-none">Datenschutz</a></div>
         </div>
     </section>  
 
@@ -20,11 +20,11 @@
                     <div class="col-sm-6">
                         <!-- Navigation -->
                         <nav class="d-flex flex-column align-items-end">
-                            <a href="/" class="fs-6 text-decoration-none text-white fw-bold">Startseite</a>
-                            <a href="/co2-emissionen" class="fs-6 text-decoration-none text-white">CO₂-Emissionen</a>
-                            <a href="/ueber-uns" class="fs-6 text-decoration-none text-white">Über Uns</a>
-                            <a href="/blog" class="fs-6 text-decoration-none text-white">Blog</a>
-                            <a href="/kontakt" class="fs-6 text-decoration-none text-white">Kontakt</a>
+                            <a href="{{ site.baseurl }}" class="fs-6 text-decoration-none text-white fw-bold">Startseite</a>
+                            <a href="{{ site.baseurl }}/co2-emissionen" class="fs-6 text-decoration-none text-white">CO₂-Emissionen</a>
+                            <a href="{{ site.baseurl }}/ueber-uns" class="fs-6 text-decoration-none text-white">Über Uns</a>
+                            <a href="{{ site.baseurl }}/blog" class="fs-6 text-decoration-none text-white">Blog</a>
+                            <a href="{{ site.baseurl }}/kontakt" class="fs-6 text-decoration-none text-white">Kontakt</a>
                         </nav>
                     </div>
                 </div>
@@ -48,10 +48,11 @@
 </section>
 
 <!-- React + ReactDOM + Babel + Bootstrap (lokal aus libs/) -->
-<script src="/libs/js/react.development.js"></script>
-<script src="/libs/js/react-dom.development.js"></script>
-<script src="/libs/js/bootstrap.bundle.min.js"></script>
+<script src="{{ site.baseurl }}/libs/js/react.development.js"></script>
+<script src="{{ site.baseurl }}/libs/js/react-dom.development.js"></script>
+<script src="{{ site.baseurl }}/libs/js/bootstrap.bundle.min.js"></script>
+<script src="{{ site.baseurl }}/libs/js/chart.js"></script>
 
 <!-- Javascript -->
-<script src="/assets/js/scripts.js"></script>
-<script src="/assets/js/react.compiled.js"></script>
+<script src="{{ site.baseurl }}/assets/js/scripts.js"></script>
+<script src="{{ site.baseurl }}/assets/js/react.compiled.js"></script>
