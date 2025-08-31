@@ -1,17 +1,26 @@
   <!-- Header -->
-  <header class="text-primary p-3">
+  <header class="text-primary pe-1 pt-3 pb-3 p-sm-3 bg-white">
 	<div class="header-elem-wrapper container-fluid d-flex justify-content-between align-items-center">
-		<a href="{{ site.baseurl }}" class="d-flex align-items-center m-2 text-decoration-none text-primary">
-			<img src="{{ site.baseurl }}/assets/img/template/logo-primary.svg" alt="Logo" class="me-2 ms-2 header-logo">
+		<a href="{{ site.baseurl }}/" class="d-flex align-items-center m-md-2 text-decoration-none text-primary">
+			<img src="{{ site.baseurl }}/assets/img/template/logo-primary.svg" alt="Logo" class="me-1 ms-1 me-sm-2 ms-sm-2 header-logo">
 			<h1 class="mb-0 fw-bold">EarthCircle</h1>
 		</a>
 		<div  class="d-flex">
 			<!-- Navigation -->
-			<nav class="d-flex justify-content-between align-items-center">
-				<a href="{{ site.baseurl }}/co2-emissionen" class="nav-link text-primary m-4 co2-emissionen">CO₂-Emissionen</a>
-				<a href="{{ site.baseurl }}/ueber-uns" class="nav-link text-primary m-4 ueber-uns">Über Uns</a>
-				<a href="{{ site.baseurl }}/blog" class="nav-link text-primary m-4 blog">Blog</a>
-				<a href="{{ site.baseurl }}/kontakt" class="nav-link text-primary m-4 kontakt">Kontakt</a>
+			<button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Menü ausklappen">
+				<div class="box">
+					<div class="menu-btn not-active">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+			</button>
+			<nav class="d-flex justify-content-between align-items-center collapse" id="navbarToggleExternalContent">
+				<a href="{{ site.baseurl }}/co2-emissionen" class="nav-link text-primary m-xl-4 m-lg-3 co2-emissionen">CO₂-Emissionen</a>
+				<a href="{{ site.baseurl }}/ueber-uns" class="nav-link text-primary m-xl-4 m-lg-3 ueber-uns">Über Uns</a>
+				<a href="{{ site.baseurl }}/blog" class="nav-link text-primary m-xl-4 m-lg-3 blog">Blog</a>
+				<a href="{{ site.baseurl }}/kontakt" class="nav-link text-primary m-xl-4 m-lg-3 kontakt">Kontakt</a>
 				{% include socialIcons.html %}
 			</nav>
 		</div>

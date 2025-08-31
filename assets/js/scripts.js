@@ -1,3 +1,54 @@
+// Prüfen, ob Swiper existiert und erstellen
+const swiperContainer = document.querySelector('.mySwiper');
+
+if (swiperContainer) {
+
+  const swiper = new Swiper(".mySwiper", {
+    slidesPerView: 3.1,     // 3 volle Cards + Peek der 4. Card
+    spaceBetween: 20,
+    autoHeight: false,
+    loop: false,
+    navigation: {
+      nextEl: ".swiper-next",
+      prevEl: ".swiper-prev",
+    },
+    breakpoints: {
+      992: { slidesPerView: 3.1 },   // Desktop
+      768: { slidesPerView: 2.2 },   // Tablet
+      576: { slidesPerView: 1.2 },   // Mobile
+      0:   { slidesPerView: 1.1 }      // Sehr kleine Screens
+    },
+  });
+
+  function updateNavClasses() {
+    const prevBtn = document.querySelector('.swiper-prev');
+    const nextBtn = document.querySelector('.swiper-next');
+
+    if (swiper.isBeginning) {
+      prevBtn.classList.add('disabled');
+    } else {
+      prevBtn.classList.remove('disabled');
+    }
+
+    if (swiper.isEnd) {
+      nextBtn.classList.add('disabled'); 
+    } else {
+      nextBtn.classList.remove('disabled');
+    }
+  }
+
+  swiper.on('slideChange', updateNavClasses);
+  updateNavClasses(); 
+
+} 
+
+// Footer-Abstand ermitteln und erstellen
+function marginFooter() {
+  document.getElementById("footer").style.marginBottom = document.getElementById('footer-notice').offsetHeight + "px";
+};
+window.addEventListener("resize", marginFooter);
+marginFooter();
+
 // Prüfen, ob das Chart-Element existiert
 const circleContainer = document.getElementById('circle-container');
 const scrollCircle = document.getElementById('scrollCircle');
@@ -106,6 +157,35 @@ if (fadeIns.length) {
   window.addEventListener("scroll", handleScrollFade);
   window.addEventListener("resize", handleScrollFade);
   handleScrollFade(); // initial
+}
+
+const halfActiveEls = document.querySelectorAll(".active-on-half");
+
+function handleScrollHalfActive() {
+  const viewportHeight = window.innerHeight;
+  const midpoint = viewportHeight / 2;
+
+  halfActiveEls.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    const elementMid = rect.top + rect.height / 2;
+
+    if (elementMid >= 0 && elementMid <= viewportHeight) {
+      // Element-Mitte ist im Viewport
+      if (Math.abs(elementMid - midpoint) < rect.height / 2) {
+        el.classList.add("is-active");
+      } else {
+        el.classList.remove("is-active");
+      }
+    } else {
+      el.classList.remove("is-active");
+    }
+  });
+}
+
+if (halfActiveEls.length) {
+  window.addEventListener("scroll", handleScrollHalfActive);
+  window.addEventListener("resize", handleScrollHalfActive);
+  handleScrollHalfActive(); // Initial aufrufen
 }
 
 const counters = document.querySelectorAll(".counter");

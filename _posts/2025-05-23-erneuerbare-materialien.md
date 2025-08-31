@@ -1,6 +1,6 @@
 ---
 layout: post
-image: "/assets/img/hero-ueber_uns-blank.jpg"
+image: "/assets/img/erneuerbare-materialien-hero.jpg"
 title: "Erneuerbare Materialien: Welche Optionen gibt es?"
 permalink: "blog/erneuerbare-materialien"
 excerpt: "Überblick über erneuerbare Materialien: Einsatzmöglichkeiten, Chancen und worauf du bei der Auswahl achten solltest."

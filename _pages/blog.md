@@ -1,15 +1,15 @@
 ---
 layout: default
 title: "Blog"
-permalink: /blog/
+permalink: blog
 ---
 
 <section>
     <div class="container-fluid">
-        <div class="m-4">
+        <div class="p-1 pt-4 p-sm-4 pt-md-0">
             <div class="row d-flex align-items-strech flex-wrap">
                 {% for post in site.posts %}
-                    <div class="col-sm-4 mb-5">
+                    <div class="col-lg-4 col-md-6 mb-5">
                         <a href="{{ post.url | relative_url }}" class="text-decoration-none text-primary d-flex flex-column">
                             <div>
                                 <div class="position-relative">

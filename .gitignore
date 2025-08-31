@@ -48,4 +48,11 @@ no-cache.rb
 *.tmp
 *.swp
 *.bak
+
+# -----------------------------
+# Lokale Skripte
+# -----------------------------
 gitpush.sh
+start-jekyll.sh
+compile-react.sh
+_config_prod.yml

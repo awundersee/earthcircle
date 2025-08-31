@@ -11,11 +11,12 @@ Mein erstes GIT-Repository für den Kurs: IPWA01-01 – Programmierung von Weban
 ## Grundgedanken
 Ich hab den Kurs genutzt, um meine bisherige Berufserfahrung zu erweitern und GIT zu verstehen und zu testen. Die eingesetzen Frameworks und Schriften sind für den Projektumfang überdimensioniert bzw. hätten auf relevante Bereiche reduziert werden können. Ich hab mich dafür entschieden Schriften, Icons und verschiedene Frameworks zu nutzen, damit das Projekt praxisnah aufgebaut und strukturiert ist.
 
+- Babel (JSX kompilieren)
+
 - React (JS)
-- Babel (JS)
 - Bootstrap (CSS + JS)
-- Chart.js (JS)
-- Swiper.js (JS)
+- Chart (JS)
+- Swiper (JS)
 - Montserrat (Schriftdateien + CSS)
 - Phosphor (Schriftdateien + CSS)
 

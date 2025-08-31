@@ -4,37 +4,41 @@ title: CO2 Emissionen
 permalink: co2-emissionen
 ---
 
-<section class="hero-banner hero-emissionen d-flex">
-    <div class="c-banner d-none d-lg-block z-1 position-absolute top-0 bottom-0 start-0 end-0"></div>
+<section class="hero-banner hero-emissionen d-flex mobile-hero">
+    <div class="c-banner d-lg-block z-1 position-absolute top-0 bottom-0 start-0 end-0"></div>
     <div class="bg-banner position-absolute top-0 bottom-0 start-0 end-0 bg-black bg-opacity-50 z-0"></div>
-    <div class="container text-white position-relative align-items-center justify-content-end z-2">
-        <div class="row">
-            <div class="col-lg-7 offset-lg-4">
-                <h1 class="display-3 fw-bold">Es ist noch ein weiter Weg zum Kreislauf</h1>
-                <p class="lead mb-4">Wir wollen nicht mit dem Finger auf die Wirtschaft zeigen, sondern Potentiale für eine Kreislaufwirschaft aufzeigen.</p>
-                <a href="{{ site.baseurl }}/ueber-uns" class="btn btn-primary btn-lg">Was Du tun kannst</a>
+    <div class="container-fluid text-white position-relative align-items-end justify-content-end z-2">
+        <div class="m-1 mt-4 mb-4 m-sm-4 mb-md-0">
+            <div class="row">
+                <div class="col-lg-7 offset-lg-4 col-md-10">
+                    <h2 class="display-3 fw-bold">Es ist noch ein weiter Weg zum Kreislauf</h2>
+                    <p class="lead mb-4">Wir wollen nicht mit dem Finger auf die Wirtschaft zeigen, sondern Potentiale für eine Kreislaufwirschaft aufzeigen.</p>
+                    <a href="{{ site.baseurl }}/ueber-uns" class="btn btn-primary btn-lg">Was Du tun kannst</a>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="bg-dark text-white pt-4 pb-4 mb-5">
+<section class="bg-dark text-white pt-4 pb-mb-4 mb-5">
     <div class="container-fluid pb-4">
-        <div class="row d-flex align-items-end pb-4">
-            <div class="col-sm-6">
-                <div class="m-4">
+        <div class="m-1 mt-4 mb-4 m-sm-4">
+            <div class="row pb-4">
+                <div class="col-xl-7 col-md-10">
                     <h2 class="fw-bold mb-5">Ist eine Kreislaufwirtschaft überhaupt realisierbar?</h2>
                     <p class="lead"><span class="fw-bold">Ja – wenn Daten genutzt werden und wir Wissen teilen,</span> schaffen wir die Grundlage dafür, dass Wirtschaft, Politik und Gesellschaft gemeinsam den Schritt in Richtung Kreislaufwirtschaft gehen.</p>
                     <p>Nachhaltige Transformation gelingt nur, wenn die Wirtschaft aktiv eingebunden ist. Genau hier setzt unsere NGO an: Wir werten Daten aus, um Potenziale sichtbar zu machen und Entscheidungsgrundlagen für Unternehmen zu schaffen.</p>
+                </div>
+            </div>
+            <div class="row d-flex align-items-end pb-md-4">
+                <div class="col-lg-7 col-md-8">
                     <p>Die 36 größten Emittenten stoßen deshalb so enorme Mengen CO₂ aus, weil sie in erster Linie für die weltweite Nachfrage nach Energie, Rohstoffen und Materialien produzieren. <strong>Ihre Emissionen spiegeln somit nicht nur ihr eigenes Handeln wider, sondern den globalen Bedarf, den sie bedienen.</strong> Daher sollten sie nicht isoliert betrachtet werden, sondern vielmehr als exemplarische Stellvertreter für ganze Wertschöpfungsketten und Konsummuster verstanden werden.</p>
                 </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="m-4">
+                <div class="offset-xxl-1 col-lg-4 col-md-4 d-flex flex-column align-items-md-end align-items-xxl-start text-md-end text-xxl-start mt-3 mt-md-0">
                     <span class="overshoot-date fw-bold"><span class="fw-light fs-1">~</span><span class="counter" data-number="40">0</span>%</span>
-                    <p class="mt-3">der globalen CO₂-Emissionen<br/>stammen von 36 Unternehmen.</p>
-                </div>
-            </div>
+                    <p class="mt-3 opacity-50 small">der globalen CO₂-Emissionen<br/>stammen von 36 Unternehmen.</p>
+                </div> 
+            </div>            
         </div>
     </div>
 </section>
@@ -42,7 +46,7 @@ permalink: co2-emissionen
 <script>
 
 async function loadData() {
-    const response = await fetch('../assets/data/data.json');
+    const response = await fetch('{{ site.baseurl }}/public/data/data.json');
     const data = await response.json();
     return data;
 }
@@ -90,7 +94,6 @@ async function createCharts() {
         responsive: true,
         plugins: { 
         legend: { display: false },
-        tooltip: { enabled: false }
         }
     }
     });
@@ -127,7 +130,6 @@ async function createCharts() {
           responsive: true,
           plugins: { 
             legend: { display: false },
-            tooltip: { enabled: false }
            }
         }
       });
@@ -137,27 +139,32 @@ async function createCharts() {
 
 </script>
 
-<section class="container-fluid pt-4 mb-4 pb-4">
-    <div class="m-4">
+<section class="container-fluid pt-4 mb-4">
+    <div class="m-1 mt-4 mb-4 m-sm-4">
         <div class="row mb-3 align-items-center">
-            <div class="col-md-12"><h2 class="fw-bold">CO₂-Emissionen globaler Unternehmen</h2></div>
-            <div class="col-sm-6 pt-4 pb-4">
+            <div class="col-xl-12 col-lg-11"><h2 class="fw-bold">CO₂-Emissionen globaler Unternehmen</h2></div>
+            <div class="col-xl-6 col-lg-7 pt-4 pb-4">
                 <p class="lead">Die folgenden Daten stammen aus dem <span class="fw-bold">Carbon Majors Report 2023</span> und beziehen sich ausschließlich auf die 36 größten globalen Unternehmen, da diese zusammen fast 40 % der weltweiten CO₂-Emissionen verursachen.</p>
                 <p>Die Daten verdeutlichen die global vernetzte Produktion und machen sichtbar, dass die Emissionen nicht allein den produzierenden Ländern zugerechnet werden können. Vielmehr zeigt die Statistik, wie groß unser gemeinsamer Energie- und Ressourcenbedarf weltweit ist und welche Rolle die internationalen Wertschöpfungsketten dabei spielen.</p>
-            </div>    
-        </div>
-        <div class="row mb-5">
-            <div class="col-sm-6 col-md-3 offset-md-2">
-                <canvas id="companyChart"></canvas>
-            </div>
-            <div class="col-sm-6 col-md-3 offset-md-2">
-                <canvas id="countryChart"></canvas>
-            </div>
-        </div>      
+                <p><span class="text-primary"><strong>Bitte beachten:</strong></span> Die folgenden Daten sind nicht geprüft, da es sich bei dieser Seite um ein fiktives Projekt handelt. <strong>Die Datensätze wurden mit KI erzeugt und sind nicht wissenschaftlich geprüft!</strong></p>
+            </div>   
+            <div class="col-xl-12 col-lg-5 pt-5">
+                <div class="row mb-5">
+                <div class="col-md-6 col-lg-12 col-xl-3 offset-xl-2 text-md-center text-lg-start text-xl-center d-flex flex-md-column flex-lg-row flex-xl-column mb-3 mb-xl-0 align-items-center">
+                    <div class="emissionen-container"><canvas id="companyChart"></canvas></div>
+                    <p class="pt-4 ps-4 ps-xl-0 small">Anteil an globalen CO₂-Emissionen<br><span class="fw-bold">nach Unternehmen</span></p>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-3 offset-xl-2 text-md-center text-lg-start text-xl-center d-flex flex-md-column flex-lg-row flex-xl-column align-items-center">
+                    <div class="emissionen-container"><canvas id="countryChart"></canvas></div>
+                    <p class="pt-4 ps-4 ps-xl-0 small">Anteil an globalen CO₂-Emissionen<br><span class="fw-bold">nach Land</span></p>
+                </div>
+            </div>   
+            </div> 
+        </div>   
         <div class="row">
-            <div class="col-lg-10 offset-lg-1">
+            <div class="col-xl-10 offset-xl-1">
                 <div class="row mb-3 align-items-center pt-5">  
-                    <div class="col-md-9">
+                    <div class="col-lg-9">
                     <label for="searchInput" class="form-label visually-hidden">Suche nach Firma oder Land</label>
                     <input
                         id="searchInput"
@@ -166,10 +173,10 @@ async function createCharts() {
                         placeholder="Nach Firma oder Land suchen"
                     />
                     </div>
-                    <div class="col-md-2 offset-md-1 col-lg-3 offset-lg-0">
+                    <div class="col-md-5 col-lg-3 offset-lg-0 mt-3 mt-sm-0 d-sm-none d-lg-block">
                     <div class="dropdown">
                         <button 
-                        class="btn btn-primary dropdown-toggle w-100" 
+                        class="btn btn-light dropdown-toggle w-100 text-start text-sm-center" 
                         type="button" 
                         id="sortDropdownButton" 
                         data-bs-toggle="dropdown" 
@@ -187,22 +194,35 @@ async function createCharts() {
                     </div>
                     </div>
                 </div>
-                <div id="table" class="table-responsive"></div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="hero-banner hero-support d-flex mt-5 align-items-center">
-    <div class="c-banner d-none d-lg-block z-1 position-absolute top-0 bottom-0 start-0 end-0"></div>
-    <div class="bg-banner position-absolute top-0 bottom-0 start-0 end-0 bg-black bg-opacity-50 z-0"></div>
-    <div class="container text-white position-relative z-2">
-        <div class="row">
-        <div class="col-lg-7 offset-lg-4">
-            <h1 class="display-3 fw-bold">Wir wollen eine Symbiose mit der Natur</h1>
-            <p class="lead mb-4">Wir wollen die globalen Ressourcen nutzen und nicht ausnutzen: mit einer funktionierenden Kreislaufwirtschaft.</p>
-            <a href="{{ site.baseurl }}/ueber-uns" class="btn btn-dark btn-lg">Unterstütze uns dabei</a>
+<section class="bg-primary bg-opacity-25">
+    <div class="container-fluid">
+        <div class="p-1 pt-4 pb-4 p-sm-4">
+            <div class="row pt-4">
+                <div class="col-xl-10 offset-xl-1">
+                    <div id="table" class="table-responsive"></div>
+                </div>
+            </div>
         </div>
+    </div>
+</section>
+
+<section class="hero-banner hero-support d-flex align-items-center">
+    <div class="c-banner d-block z-1 position-absolute top-0 bottom-0 start-0 end-0"></div>
+    <div class="bg-banner position-absolute top-0 bottom-0 start-0 end-0 bg-black bg-opacity-50 z-0"></div>
+    <div class="container-fluid text-white position-relative z-2">
+        <div class="m-4">
+            <div class="row">
+            <div class="col-lg-7 offset-lg-4 col-md-9">
+                <h1 class="display-3 fw-bold">Wir wollen eine Symbiose mit der Natur</h1>
+                <p class="lead mb-4">Wir wollen die globalen Ressourcen nutzen und nicht ausnutzen: mit einer funktionierenden Kreislaufwirtschaft.</p>
+                <a href="{{ site.baseurl }}/ueber-uns" class="btn btn-dark btn-lg">Unterstütze uns dabei</a>
+            </div>
+            </div>
         </div>
     </div>
 </section>

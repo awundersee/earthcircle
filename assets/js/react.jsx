@@ -5,10 +5,11 @@ function App() {
   const [filter, setFilter] = useState("");
   const [sortKey, setSortKey] = useState("country");
   const [sortAsc, setSortAsc] = useState(true);
+  const baseurl = window.BASEURL || "";
 
   // Daten laden
   useEffect(() => {
-    fetch("../assets/data/data.json")
+    fetch(`${baseurl}/public/data/data.json`)
       .then(res => res.json())
       .then(json => setData(json))
       .catch(err => console.error("Fehler beim Laden:", err));
@@ -17,8 +18,9 @@ function App() {
   // Input- und Dropdown-Listener
   useEffect(() => {
     const input = document.getElementById("searchInput");
-    const dropdownButton = document.getElementById("sortDropdownButton");
-    const dropdownItems = document.querySelectorAll("#sortDropdownButton + .dropdown-menu .dropdown-item");
+    const dropdownItems = document.querySelectorAll(
+      "#sortDropdownButton + .dropdown-menu .dropdown-item"
+    );
 
     // Input
     const handleInput = (e) => setFilter(e.target.value);
@@ -39,11 +41,19 @@ function App() {
     input.addEventListener("input", handleInput);
     dropdownItems.forEach(item => item.addEventListener("click", handleDropdownClick));
 
+    // 👉 Initial active setzen (country asc beim ersten Render)
+    const initActive = Array.from(dropdownItems).find(
+      item => item.dataset.key === sortKey && item.dataset.dir === (sortAsc ? "asc" : "desc")
+    );
+    if (initActive) {
+      initActive.classList.add("active");
+    }
+
     return () => {
       input.removeEventListener("input", handleInput);
       dropdownItems.forEach(item => item.removeEventListener("click", handleDropdownClick));
     };
-  }, []);
+  }, [sortKey, sortAsc]);
 
   // Gefilterte und sortierte Daten
   const filteredData = data
@@ -81,8 +91,9 @@ function App() {
     setSortAsc(newAsc);
 
     // Dropdown synchronisieren: nur active
-    const dropdownButton = document.getElementById("sortDropdownButton");
-    const dropdownItems = document.querySelectorAll("#sortDropdownButton + .dropdown-menu .dropdown-item");
+    const dropdownItems = document.querySelectorAll(
+      "#sortDropdownButton + .dropdown-menu .dropdown-item"
+    );
 
     const matchingItem = Array.from(dropdownItems).find(
       item => item.dataset.key === key && item.dataset.dir === (newAsc ? "asc" : "desc")
@@ -102,7 +113,7 @@ function App() {
               type="button"
               onClick={() => handleSortButton("country")}
               aria-label={getAriaLabel("country", "Land")}
-              style={{ cursor: "pointer", border: "none", background: "transparent", padding: 0 }}
+              className="text-nowrap cursor-pointer p-0 border-0 bg-transparent"
             >
               Land
             </button>
@@ -113,7 +124,7 @@ function App() {
               type="button"
               onClick={() => handleSortButton("company")}
               aria-label={getAriaLabel("company", "Unternehmen")}
-              style={{ cursor: "pointer", border: "none", background: "transparent", padding: 0 }}
+              className="text-nowrap cursor-pointer p-0 border-0 bg-transparent"
             >
               Unternehmen
             </button>
@@ -124,7 +135,7 @@ function App() {
               type="button"
               onClick={() => handleSortButton("emissions")}
               aria-label={getAriaLabel("emissions", "CO₂-Emissionen (MtCO₂)")}
-              style={{ cursor: "pointer", border: "none", background: "transparent", padding: 0 }}
+              className="text-nowrap cursor-pointer p-0 border-0 bg-transparent"
             >
               CO₂-Emissionen (t)
             </button>
@@ -133,13 +144,21 @@ function App() {
       </thead>
 
       <tbody>
-        {filteredData.map((row, idx) => (
-          <tr key={idx}>
-            <td className={sortKey === "country" ? "is-selected" : ""}>{row.country}</td>
-            <td className={sortKey === "company" ? "is-selected" : ""}>{row.company}</td>
-            <td className={sortKey === "emissions" ? "is-selected" : ""}>{row.emissions}</td>
+        {filteredData.length === 0 ? (
+          <tr>
+            <td colSpan="3" className=" text-muted">
+              Nichts gefunden
+            </td>
           </tr>
-        ))}
+        ) : (
+          filteredData.map((row, idx) => (
+            <tr key={idx}>
+              <td className={sortKey === "country" ? "is-selected" : ""}>{row.country}</td>
+              <td className={sortKey === "company" ? "is-selected" : ""}>{row.company}</td>
+              <td className={sortKey === "emissions" ? "is-selected" : ""}>{row.emissions}</td>
+            </tr>
+          ))
+        )}
       </tbody>
     </table>
   );
@@ -151,134 +170,301 @@ if (tableEl) {
   ReactDOM.createRoot(tableEl).render(<App />);
 }
 
+
 const h = React.createElement;
 
-  // Utilities
-  const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || "").trim());
-  const containsCode = (text) => /<[^>]+>/.test(String(text || ""));
+// Utilities
+const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || "").trim());
 
-  // Feld mit optionaler Fehlermeldung
-  function FieldWrapper({ children, error }) {
-    return h("div", { className: "mb-2 w-100 z-1" }, children, error ? h("div", { className: "invalid-feedback d-block" }, error) : null);
-  }
+// Whitelist-Prüfungen
+const isValidName = (text) => /^[\p{L}\s'-]+$/u.test(String(text || "")); 
+const isValidMessage = (text) =>
+  /^[\p{L}\p{N}\s.,!?;:'"()\-@äöüÄÖÜßéèêàáâçñ€$%&/\\]+$/u.test(String(text || ""));
 
-  function CustomForm({ type, formId }) {
-    const [formData, setFormData] = useState({
-      name: "",
-      email: "",
-      newsletter: false,
-      message: "",
-      honeypot: "",
-    });
-    const [errors, setErrors] = useState({});
-    const [submitted, setSubmitted] = useState(false);
+// Feld mit optionaler Fehlermeldung
+function FieldWrapper({ children, error }) {
+  return h(
+    "div",
+    { className: "mb-2 w-100 z-1 position-relative" },
+    children,
+    error ? h("div", { className: "invalid-feedback d-block" }, error) : null
+  );
+}
 
-    const setField = (name, value) => setFormData((prev) => ({ ...prev, [name]: value }));
+function CustomForm({ type, formId }) {
 
-    const handleChange = (e) => {
-      const t = e.target;
-      const value = t.type === "checkbox" ? !!t.checked : t.value;
-      setField(t.name, value);
-    };
+  const baseurl = window.BASEURL || "";
+  const [formData, setFormData] = React.useState({
+    name: "",
+    email: "",
+    newsletter: false,
+    message: "",
+    honeypot: "",
+  });
+  const [errors, setErrors] = React.useState({});
+  const [submitted, setSubmitted] = React.useState(false);
 
-    const validate = () => {
-      const newErrors = {};
+  const setField = (name, value) =>
+    setFormData((prev) => ({ ...prev, [name]: value }));
 
-      // Honeypot: Bot erkannt → still abbrechen
-      if (formData.honeypot && String(formData.honeypot).trim() !== "") return { honeypot: true };
+  // Live-Validierung
+  const handleChange = (e) => {
+    const t = e.target;
+    const value = t.type === "checkbox" ? !!t.checked : t.value;
+    setField(t.name, value);
 
-      // Name
-      if (!String(formData.name).trim() || containsCode(formData.name)) newErrors.name = "Bitte einen Namen eingeben.";
-
-      // E-Mail
-      if (!isValidEmail(formData.email)) newErrors.email = "Bitte eine gültige E-Mail eingeben.";
-
-      // Nachricht nur Kontaktformular
-      if (type === "contact") {
-        if (!String(formData.message).trim() || containsCode(formData.message)) newErrors.message = "Bitte eine Nachricht eingeben.";
+    if (errors[t.name]) {
+      let newErrors = { ...errors };
+      if (t.name === "name" && String(value).trim() && isValidName(value)) {
+        delete newErrors.name;
       }
-
-      return newErrors;
-    };
-
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      const newErrors = validate();
-      if (newErrors.honeypot) return; // Bot → Abbruch
-      if (Object.keys(newErrors).length > 0) {
-        setErrors(newErrors);
-        return;
+      if (t.name === "email" && isValidEmail(value)) {
+        delete newErrors.email;
       }
-      setErrors({});
-      // Hier kannst du den Backend-Call einfügen:
-      // fetch('/api/submit', { method: 'POST', body: JSON.stringify({ type, formId, ...formData }) });
-      setSubmitted(true);
-    };
+      if (t.name === "message" && String(value).trim() && isValidMessage(value)) {
+        delete newErrors.message;
+      }
+      setErrors(newErrors);
+    }
+  };
 
-    if (submitted) {
-      return h("div", { className: "alert alert-success my-3" },
-        type === "newsletter" ? "Vielen Dank für Dein Interesse!" : "Vielen Dank für Deine Nachricht!"
-      );
+  const validate = () => {
+    const newErrors = {};
+
+    // Honeypot: Bot erkannt → still abbrechen
+    if (formData.honeypot && String(formData.honeypot).trim() !== "")
+      return { honeypot: true };
+
+    // Name nur Mitgliedsantrag & Kontakt
+    if (type !== "newsletter") {
+      if (!String(formData.name).trim()) {
+        newErrors.name = "Bitte einen Namen eingeben.";
+      } else if (!isValidName(formData.name)) {
+        newErrors.name = "Ungültige Eingabe.";
+      }
     }
 
-    const cls = (err) => "form-control" + (err ? " is-invalid" : "");
+    // E-Mail Pflicht bei allen
+    if (!isValidEmail(formData.email)) {
+      newErrors.email = "Bitte eine gültige E-Mail eingeben.";
+    }
 
-    const formClassName =
-    type === "newsletter"
-    ? "p-3 border rounded-3 mb-4 d-flex flex-wrap justify-content-between align-items-center form-gradient"
-    : "mb-4 d-flex flex-wrap justify-content-between align-items-center";
+    // Nachricht nur Kontaktformular
+    if (type === "contact") {
+      if (!String(formData.message).trim()) {
+        newErrors.message = "Bitte eine Nachricht eingeben.";
+      } else if (!isValidMessage(formData.message)) {
+        newErrors.message = "Ungültige Eingabe.";
+      }
+    }
 
+    return newErrors;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newErrors = validate();
+    if (newErrors.honeypot) return;
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    setErrors({});
+    setSubmitted(true);
+  };
+
+  if (submitted) {
     return h(
-      "form",
-      { className: formClassName, onSubmit: handleSubmit, noValidate: true },
-
-      // Name
-      h(FieldWrapper, { error: errors.name },
-        h("label", { className: "form-label", htmlFor: formId + "-name" }, "Name"),
-        h("input", { id: formId + "-name", name: "name", type: "text", className: cls(errors.name), value: formData.name, onChange: handleChange, required: true })
-      ),
-
-      // E-Mail
-      h(FieldWrapper, { error: errors.email },
-        h("label", { className: "form-label", htmlFor: formId + "-email" }, "E-Mail"),
-        h("input", { id: formId + "-email", name: "email", type: "email", className: cls(errors.email), value: formData.email, onChange: handleChange, required: true })
-      ),
-
-      // Newsletter Checkbox nur Newsletter
-      type === "newsletter" && h("small", { className: "pb-3 form-hint opacity-75 z-1" }, 
-        "Du wirst mit dem Absenden des Formulars nicht automatisch Mitglied, sondern erhältst alle Informationen zur Mitgliedschaft sowie das Antragsformular per Mail. Mit dem Absenden stimmst Du unseren ",
-        h("a", { href: "/datenschutz", target: "_blank", className: "underline text-primary" }, "Datenschutzbestimmungen"),
-        " zu."
-        ),
-       type === "newsletter" && h("div", { className: "form-check mb-3 order-5 z-1" },
-        h("input", { id: formId + "-newsletter", name: "newsletter", type: "checkbox", className: "form-check-input", checked: formData.newsletter, onChange: handleChange }),
-        h("label", { htmlFor: formId + "-newsletter", className: "form-check-label" }, "Zum Newsletter anmelden")
-      ),
-
-      // Nachricht nur Kontakt
-      type === "contact" && h(FieldWrapper, { error: errors.message },
-        h("label", { className: "form-label", htmlFor: formId + "-message" }, "Nachricht"),
-        h("textarea", { id: formId + "-message", name: "message", rows: 4, className: cls(errors.message), value: formData.message, onChange: handleChange, required: true })
-      ),
-      type === "contact" && h("small", { className: "pb-3 form-hint opacity-75 z-1 w-100" }, 
-        "Mit dem Absenden stimmst Du unseren ",
-        h("a", { href: "/datenschutz", target: "_blank", className: "underline text-primary" }, "Datenschutzbestimmungen"),
-        " zu."
-        ),
-
-      // Honeypot
-      h("input", { type: "text", name: "honeypot", value: formData.honeypot, onChange: handleChange, style: { display: "none" } }),
-
-      // Submit
-      h("button", { type: "submit", className: "btn btn-primary z-1" }, type === "newsletter" ? "Antragsformular anfordern" : "Senden")
+      "div",
+      { className: "alert alert-success my-3" },
+      type === "newsletter"
+        ? ["Vielen Dank für Deine Anmeldung zum Newsletter! ", h('span', {className: "fw-bold"}, "Bitte bestätige Deine Anmeldung zum Newsletter durch den Klick auf den Bestätigungslink"), " in der Mail, die wir an Dich verschickt haben."]
+        : type === "mitgliedsantrag"
+        ? h(
+            React.Fragment,
+            null,
+            h(
+              "span",
+              { className: "text-primary fw-bold d-block mb-2 lead" },
+              "Vielen Dank für Dein Interesse!"
+            ),
+            "Wir haben Dir das Antragsformular per Mail gesendet. Falls Du in den nächsten Minuten keine Mail bekommst, ",
+            h(
+              "span",
+              { className: "text-primary" },
+              "prüfe bitte auch Deinen SPAM-Ordner."
+            ),
+            formData.newsletter &&
+              h(
+                "p",
+                { className: "mt-2 fw-bold text-primary" },
+                "Bitte bestätige außerdem Deine Anmeldung zum Newsletter in der zusätzlichen Mail, die wir Dir soeben gesendet haben."
+              )
+          )
+        : "Vielen Dank für Deine Nachricht!"
     );
   }
 
-  // ---------- Mounting ----------
-  document.querySelectorAll(".form").forEach((el, i) => {
-    const typeAttr = (el.getAttribute("data-type") || "").toLowerCase();
-    if (typeAttr !== "newsletter" && typeAttr !== "contact") return;
-    const formId = el.getAttribute("data-id") || (typeAttr + "-" + (i + 1));
-    const root = ReactDOM.createRoot(el);
-    root.render(h(CustomForm, { type: typeAttr, formId }));
-  });
+  const cls = (err) => "form-control" + (err ? " is-invalid" : "");
+
+  const formClassName =
+    type === "mitgliedsantrag"
+      ? "p-3 border rounded-3 mb-4 d-flex flex-wrap justify-content-between align-items-center form-gradient"
+      : "mb-4 d-flex flex-wrap justify-content-between align-items-center";
+
+  return h(
+    "form",
+    { className: formClassName, onSubmit: handleSubmit, noValidate: true },
+
+    type !== "newsletter" &&
+      h(
+        FieldWrapper,
+        { error: errors.name },
+        h(
+          "label",
+          { className: "form-label", htmlFor: formId + "-name" },
+          "Name"
+        ),
+        h("input", {
+          id: formId + "-name",
+          name: "name",
+          type: "text",
+          className: cls(errors.name),
+          value: formData.name,
+          onChange: handleChange,
+          required: true,
+        })
+      ),
+
+    h(
+      FieldWrapper,
+      { error: errors.email },
+      h(
+        "label",
+        { className: type === "newsletter" ? "d-none form-label" : "form-label", 
+          htmlFor: formId + "-email" },
+        "E-Mail"
+      ),
+      h("input", {
+        id: formId + "-email",
+        name: "email",
+        type: "email",
+        className: cls(errors.email),
+        value: formData.email,
+        onChange: handleChange,
+        required: true,
+        placeholder: type === "newsletter" ? "E-Mail" : ""
+      })
+    ),
+
+    type === "mitgliedsantrag" &&
+      h(
+        "small",
+        { className: "pb-3 form-hint opacity-75 z-1" },
+        "Du wirst mit dem Absenden des Formulars nicht automatisch Mitglied, sondern erhältst alle Informationen zur Mitgliedschaft sowie das Antragsformular per Mail. Mit dem Absenden stimmst Du unseren ",
+        h(
+          "a",
+          {
+            href: `${baseurl}/datenschutz`,
+            target: "_blank",
+            className: "underline text-primary",
+          },
+          "Datenschutzbestimmungen"
+        ),
+        " zu."
+      ),
+    type === "mitgliedsantrag" &&
+      h(
+        "div",
+        { className: "form-check mb-4 z-1" },
+        h("input", {
+          id: formId + "-newsletter",
+          name: "newsletter",
+          type: "checkbox",
+          className: "form-check-input",
+          checked: formData.newsletter,
+          onChange: handleChange,
+        }),
+        h(
+          "label",
+          { htmlFor: formId + "-newsletter", className: "form-check-label" },
+          h("span", { className: "text-primary fw-bold" }, "Ja,"),
+          " ich möchte mich jetzt auch direkt",
+          h("span", { className: "text-primary" }, " zum Newsletter anmelden.")
+        )
+      ),
+
+    type === "contact" &&
+      h(
+        FieldWrapper,
+        { error: errors.message },
+        h(
+          "label",
+          { className: "form-label", htmlFor: formId + "-message" },
+          "Nachricht"
+        ),
+        h("textarea", {
+          id: formId + "-message",
+          name: "message",
+          rows: 4,
+          className: cls(errors.message),
+          value: formData.message,
+          onChange: handleChange,
+          required: true,
+        })
+      ),
+    type === "contact" &&
+      h(
+        "small",
+        { className: "pb-3 form-hint opacity-75 z-1 w-100" },
+        "Mit dem Absenden stimmst Du unseren ",
+        h(
+          "a",
+          {
+            href: `${baseurl}/datenschutz`,
+            target: "_blank",
+            className: "underline text-primary",
+          },
+          "Datenschutzbestimmungen"
+        ),
+        " zu."
+      ),
+
+    h("input", {
+      type: "text",
+      name: "honeypot",
+      value: formData.honeypot,
+      onChange: handleChange,
+      style: { display: "none" },
+    }),
+
+    h(
+      "button",
+      {
+        type: "submit", // hier ggf. unterschiedliche type-Werte
+        className: type === "newsletter" 
+          ? "btn btn-light text-primary z-1" 
+          : "btn btn-primary z-1"
+      },
+      type === "newsletter"
+        ? h("span", {className: "ph ph-arrow-right"})
+        : type === "mitgliedsantrag"
+        ? "Antragsformular anfordern"
+        : "Senden"
+    )
+  );
+}
+
+// ---------- Mounting ----------
+document.querySelectorAll(".form").forEach((el, i) => {
+  const typeAttr = (el.getAttribute("data-type") || "").toLowerCase();
+  if (
+    typeAttr !== "newsletter" &&
+    typeAttr !== "mitgliedsantrag" &&
+    typeAttr !== "contact"
+  )
+    return;
+  const formId = el.getAttribute("data-id") || typeAttr + "-" + (i + 1);
+  const root = ReactDOM.createRoot(el);
+  root.render(h(CustomForm, { type: typeAttr, formId }));
+});

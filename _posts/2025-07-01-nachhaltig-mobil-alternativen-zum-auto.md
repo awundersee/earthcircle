@@ -1,6 +1,6 @@
 ---
 layout: post
-image: "/assets/img/hero-ueber_uns-blank.jpg"
+image: "/assets/img/nachhaltig-mobil-alternativen-zum-auto-hero.jpg"
 title: "Nachhaltig mobil: Alternativen zum Auto"
 permalink: "blog/nachhaltig-mobil-alternativen-zum-auto"
 excerpt: "Wege zu klimafreundlicher Mobilität: Von Radfahren bis Carsharing — praktische Tipps für den Umstieg vom Auto."
