@@ -5,8 +5,8 @@ permalink: blog
 ---
 
 <section>
-    <div class="container-fluid">
-        <div class="p-1 pt-4 p-sm-4 pt-md-0">
+    <div class="px-1 px-sm-2 px-md-3 px-lg-4 px-xl-5 py-3 py-md-4 pt-4 pt-md-0">
+        <div class="container-fluid blog-wrapper">
             <div class="row d-flex align-items-strech flex-wrap">
                 {% for post in site.posts %}
                     <div class="col-lg-4 col-md-6 mb-5">

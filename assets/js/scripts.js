@@ -1,3 +1,102 @@
+// Prüfen, ob Chart existiert und erstellen
+const chartContainer = document.querySelector('.chart-container');
+
+if (chartContainer) {
+
+  async function loadData() {
+    const baseurl = window.BASEURL || "";
+    const response = await fetch(`${baseurl}/public/data/data.json`);
+    const data = await response.json();
+    return data;
+  }
+
+  // Funktion um braune Farbvarianten zu generieren
+  function generateBrownColors(n) {
+    const colors = [];
+    for (let i = 0; i < n; i++) {
+    // Basisfarbe #ce7a00 -> HSL: 33°, 100%, 40%
+    // Wir variieren Helligkeit 35%-60% und Sättigung 80%-100%
+    const hue = 33; // braun
+    const saturation = 80 + Math.random() * 20;
+    const lightness = 35 + Math.random() * 25;
+    colors.push(`hsl(${hue}, ${saturation}%, ${lightness}%)`);
+    }
+    return colors;
+  }
+
+  async function createCharts() {
+  const data = await loadData();
+
+  // --- Unternehmen ---
+  const companyLabels = data.map(d => d.company);
+  const companyPercentages = data.map(d => d.percentage);
+
+  // Rest der Welt hinzufügen
+  const sumCompany = companyPercentages.reduce((a,b) => a+b, 0);
+  companyLabels.push("Rest der Welt");
+  companyPercentages.push(100 - sumCompany);
+
+  const companyColors = [...generateBrownColors(companyLabels.length - 1), 'lightgray'];
+
+  const ctx1 = document.getElementById('companyChart').getContext('2d');
+  new Chart(ctx1, {
+  type: 'doughnut',
+  data: {
+      labels: companyLabels,
+      datasets: [{
+      label: 'Anteil an globalen CO₂-Emissionen',
+      data: companyPercentages,
+      backgroundColor: companyColors
+      }]
+  },
+  options: {
+      responsive: true,
+      plugins: { 
+      legend: { display: false },
+      }
+  }
+  });
+
+  // --- Länder ---
+  const countryData = {};
+  data.forEach(d => {
+  if (!countryData[d.country]) countryData[d.country] = 0;
+  countryData[d.country] += d.percentage;
+  });
+
+  const countryLabels = Object.keys(countryData);
+  const countryPercentages = Object.values(countryData);
+
+  // Rest der Welt hinzufügen
+  const sumCountry = countryPercentages.reduce((a,b) => a+b, 0);
+  countryLabels.push("Rest der Welt");
+  countryPercentages.push(100 - sumCountry);
+
+  const countryColors = [...generateBrownColors(countryLabels.length - 1), 'lightgray'];
+
+  const ctx2 = document.getElementById('countryChart').getContext('2d');
+  new Chart(ctx2, {
+  type: 'doughnut',
+      data: {
+        labels: countryLabels,
+        datasets: [{
+          label: 'Anteil an globalen CO₂-Emissionen nach Land',
+          data: countryPercentages,
+          backgroundColor: countryColors
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { 
+          legend: { display: false },
+          }
+      }
+    });
+  }
+
+  createCharts(); 
+};
+    
 // Prüfen, ob Swiper existiert und erstellen
 const swiperContainer = document.querySelector('.mySwiper');
 
@@ -16,31 +115,33 @@ if (swiperContainer) {
       992: { slidesPerView: 3.1 },   // Desktop
       768: { slidesPerView: 2.2 },   // Tablet
       576: { slidesPerView: 1.2 },   // Mobile
-      0:   { slidesPerView: 1.1 }      // Sehr kleine Screens
+      0:   { slidesPerView: 1.1 }    // Sehr kleine Screens
     },
   });
 
-  function updateNavClasses() {
+  function updateNavClasses(swiperInstance) {
     const prevBtn = document.querySelector('.swiper-prev');
     const nextBtn = document.querySelector('.swiper-next');
 
-    if (swiper.isBeginning) {
+    if (!prevBtn || !nextBtn) return; // Buttons existieren evtl. nicht
+
+    if (swiperInstance.isBeginning) {
       prevBtn.classList.add('disabled');
     } else {
       prevBtn.classList.remove('disabled');
     }
 
-    if (swiper.isEnd) {
+    if (swiperInstance.isEnd) {
       nextBtn.classList.add('disabled'); 
     } else {
       nextBtn.classList.remove('disabled');
     }
   }
 
-  swiper.on('slideChange', updateNavClasses);
-  updateNavClasses(); 
+  swiper.on('slideChange', () => updateNavClasses(swiper));
+  updateNavClasses(swiper);
 
-} 
+}
 
 // Footer-Abstand ermitteln und erstellen
 function marginFooter() {

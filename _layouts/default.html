@@ -3,7 +3,7 @@
 
   {% include head.html %}
 
-<body class="{{page.permalink}} bg-light">
+<body class="{{ page.title | slugify }} bg-light">
   
   {% include header.html %}
 

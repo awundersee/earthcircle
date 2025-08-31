@@ -6,9 +6,9 @@ permalink: kontakt
 
 <section class="hero-banner hero-kontakt d-flex mobile-hero">
     <div class="c-banner d-lg-block z-1 position-absolute top-0 bottom-0 start-0 end-0"></div>
-    <div class="bg-banner position-absolute top-0 bottom-0 start-0 end-0 bg-black bg-opacity-50 z-0"></div>
+    <div class="bg-banner d-none d-sm-block position-absolute top-0 bottom-0 start-0 end-0 bg-black bg-opacity-50 z-2 z-lg-0"></div>
     <div class="container-fluid text-white position-relative align-items-end justify-content-end z-2">
-        <div class="m-1 mt-4 mb-4 m-sm-4 mb-md-0">
+      <div class="mx-1 mx-sm-2 mx-md-3 mx-lg-4 mx-xl-5 my-3 my-md-4">
             <div class="row">
                 <div class="col-lg-7 offset-lg-4 col-md-10">
                     <h2 class="display-3 fw-bold">Wir sind digital und analog erreichbar</h2>
@@ -24,7 +24,7 @@ permalink: kontakt
 
 <article class="blog-wrapper">
     <div class="container-fluid pt-4 pb-4">
-        <div class="p-1 pt-4 pb-4 p-sm-4">
+        <div class="pt-4 pb-4 p-1 pt-4 pb-4 px-sm-2 px-md-3 p-sm-4">
             <div class="row mb-3 d-flex align-items-start">
                 <div class="col-lg-3 offset-lg-1 mb-4 mb-lg-0">
                     <div class="big-social-icon-wrapper">

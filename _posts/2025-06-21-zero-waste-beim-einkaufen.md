@@ -1,6 +1,6 @@
 ---
 layout: post
-image: "/assets/img/zero-waste-beim-einkaufen-hero-2.jpg"
+image: "/assets/img/zero-waste-beim-einkaufen-hero.jpg"
 title: "Zero-Waste beim Einkaufen: So klappt der Einstieg"
 permalink: "blog/zero-waste-beim-einkaufen"
 heroColor: 

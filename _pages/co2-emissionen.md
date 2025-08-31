@@ -6,9 +6,9 @@ permalink: co2-emissionen
 
 <section class="hero-banner hero-emissionen d-flex mobile-hero">
     <div class="c-banner d-lg-block z-1 position-absolute top-0 bottom-0 start-0 end-0"></div>
-    <div class="bg-banner position-absolute top-0 bottom-0 start-0 end-0 bg-black bg-opacity-50 z-0"></div>
+    <div class="bg-banner d-none d-sm-block position-absolute top-0 bottom-0 start-0 end-0 bg-black bg-opacity-50 z-2 z-lg-0"></div>
     <div class="container-fluid text-white position-relative align-items-end justify-content-end z-2">
-        <div class="m-1 mt-4 mb-4 m-sm-4 mb-md-0">
+        <div class="mx-1 mx-sm-2 mx-md-3 mx-lg-4 mx-xl-5 my-3 my-md-4">
             <div class="row">
                 <div class="col-lg-7 offset-lg-4 col-md-10">
                     <h2 class="display-3 fw-bold">Es ist noch ein weiter Weg zum Kreislauf</h2>
@@ -21,8 +21,8 @@ permalink: co2-emissionen
 </section>
 
 <section class="bg-dark text-white pt-4 pb-mb-4 mb-5">
-    <div class="container-fluid pb-4">
-        <div class="m-1 mt-4 mb-4 m-sm-4">
+    <div class="px-1 px-sm-2 px-md-3 px-lg-4 px-xl-5 py-3 py-md-4">
+        <div class="container-fluid">
             <div class="row pb-4">
                 <div class="col-xl-7 col-md-10">
                     <h2 class="fw-bold mb-5">Ist eine Kreislaufwirtschaft überhaupt realisierbar?</h2>
@@ -43,104 +43,8 @@ permalink: co2-emissionen
     </div>
 </section>
 
-<script>
-
-async function loadData() {
-    const response = await fetch('{{ site.baseurl }}/public/data/data.json');
-    const data = await response.json();
-    return data;
-}
-
-// Funktion um braune Farbvarianten zu generieren
-function generateBrownColors(n) {
-    const colors = [];
-    for (let i = 0; i < n; i++) {
-    // Basisfarbe #ce7a00 -> HSL: 33°, 100%, 40%
-    // Wir variieren Helligkeit 35%-60% und Sättigung 80%-100%
-    const hue = 33; // braun
-    const saturation = 80 + Math.random() * 20;
-    const lightness = 35 + Math.random() * 25;
-    colors.push(`hsl(${hue}, ${saturation}%, ${lightness}%)`);
-    }
-    return colors;
-}
-
-async function createCharts() {
-    const data = await loadData();
-
-    // --- Unternehmen ---
-    const companyLabels = data.map(d => d.company);
-    const companyPercentages = data.map(d => d.percentage);
-
-    // Rest der Welt hinzufügen
-    const sumCompany = companyPercentages.reduce((a,b) => a+b, 0);
-    companyLabels.push("Rest der Welt");
-    companyPercentages.push(100 - sumCompany);
-
-    const companyColors = [...generateBrownColors(companyLabels.length - 1), 'lightgray'];
-
-    const ctx1 = document.getElementById('companyChart').getContext('2d');
-    new Chart(ctx1, {
-    type: 'doughnut',
-    data: {
-        labels: companyLabels,
-        datasets: [{
-        label: 'Anteil an globalen CO₂-Emissionen',
-        data: companyPercentages,
-        backgroundColor: companyColors
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: { 
-        legend: { display: false },
-        }
-    }
-    });
-
-    // --- Länder ---
-    const countryData = {};
-    data.forEach(d => {
-    if (!countryData[d.country]) countryData[d.country] = 0;
-    countryData[d.country] += d.percentage;
-    });
-
-    const countryLabels = Object.keys(countryData);
-    const countryPercentages = Object.values(countryData);
-
-    // Rest der Welt hinzufügen
-    const sumCountry = countryPercentages.reduce((a,b) => a+b, 0);
-    countryLabels.push("Rest der Welt");
-    countryPercentages.push(100 - sumCountry);
-
-    const countryColors = [...generateBrownColors(countryLabels.length - 1), 'lightgray'];
-
-    const ctx2 = document.getElementById('countryChart').getContext('2d');
-    new Chart(ctx2, {
-    type: 'doughnut',
-        data: {
-          labels: countryLabels,
-          datasets: [{
-            label: 'Anteil an globalen CO₂-Emissionen nach Land',
-            data: countryPercentages,
-            backgroundColor: countryColors
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: { 
-            legend: { display: false },
-           }
-        }
-      });
-    }
-
-    createCharts();   
-
-</script>
-
-<section class="container-fluid pt-4 mb-4">
-    <div class="m-1 mt-4 mb-4 m-sm-4">
+<section class="px-1 px-sm-2 px-md-3 px-lg-4 px-xl-5 py-3 py-md-4">
+    <div class="container-fluid">
         <div class="row mb-3 align-items-center">
             <div class="col-xl-12 col-lg-11"><h2 class="fw-bold">CO₂-Emissionen globaler Unternehmen</h2></div>
             <div class="col-xl-6 col-lg-7 pt-4 pb-4">
@@ -149,16 +53,16 @@ async function createCharts() {
                 <p><span class="text-primary"><strong>Bitte beachten:</strong></span> Die folgenden Daten sind nicht geprüft, da es sich bei dieser Seite um ein fiktives Projekt handelt. <strong>Die Datensätze wurden mit KI erzeugt und sind nicht wissenschaftlich geprüft!</strong></p>
             </div>   
             <div class="col-xl-12 col-lg-5 pt-5">
-                <div class="row mb-5">
-                <div class="col-md-6 col-lg-12 col-xl-3 offset-xl-2 text-md-center text-lg-start text-xl-center d-flex flex-md-column flex-lg-row flex-xl-column mb-3 mb-xl-0 align-items-center">
-                    <div class="emissionen-container"><canvas id="companyChart"></canvas></div>
-                    <p class="pt-4 ps-4 ps-xl-0 small">Anteil an globalen CO₂-Emissionen<br><span class="fw-bold">nach Unternehmen</span></p>
-                </div>
-                <div class="col-md-6 col-lg-12 col-xl-3 offset-xl-2 text-md-center text-lg-start text-xl-center d-flex flex-md-column flex-lg-row flex-xl-column align-items-center">
-                    <div class="emissionen-container"><canvas id="countryChart"></canvas></div>
-                    <p class="pt-4 ps-4 ps-xl-0 small">Anteil an globalen CO₂-Emissionen<br><span class="fw-bold">nach Land</span></p>
-                </div>
-            </div>   
+                <div class="row mb-5 chart-container">
+                    <div class="col-md-6 col-lg-12 col-xl-3 offset-xl-2 text-md-center text-lg-start text-xl-center d-flex flex-md-column flex-lg-row flex-xl-column mb-3 mb-xl-0 align-items-center">
+                        <div class="emissionen-container"><canvas id="companyChart"></canvas></div>
+                        <p class="pt-4 ps-4 ps-xl-0 small">Anteil an globalen CO₂-Emissionen<br><span class="fw-bold">nach Unternehmen</span></p>
+                    </div>
+                    <div class="col-md-6 col-lg-12 col-xl-3 offset-xl-2 text-md-center text-lg-start text-xl-center d-flex flex-md-column flex-lg-row flex-xl-column align-items-center">
+                        <div class="emissionen-container"><canvas id="countryChart"></canvas></div>
+                        <p class="pt-4 ps-4 ps-xl-0 small">Anteil an globalen CO₂-Emissionen<br><span class="fw-bold">nach Land</span></p>
+                    </div>
+                </div>   
             </div> 
         </div>   
         <div class="row">
@@ -200,8 +104,8 @@ async function createCharts() {
 </section>
 
 <section class="bg-primary bg-opacity-25">
-    <div class="container-fluid">
-        <div class="p-1 pt-4 pb-4 p-sm-4">
+    <div class="px-1 px-sm-2 px-md-3 px-lg-4 px-xl-5 py-3 py-md-4">
+        <div class="container-fluid">
             <div class="row pt-4">
                 <div class="col-xl-10 offset-xl-1">
                     <div id="table" class="table-responsive"></div>
@@ -215,7 +119,7 @@ async function createCharts() {
     <div class="c-banner d-block z-1 position-absolute top-0 bottom-0 start-0 end-0"></div>
     <div class="bg-banner position-absolute top-0 bottom-0 start-0 end-0 bg-black bg-opacity-50 z-0"></div>
     <div class="container-fluid text-white position-relative z-2">
-        <div class="m-4">
+        <div class="m-1 m-sm-2 m-md-3 mx-lg-4 px-xl-5">
             <div class="row">
             <div class="col-lg-7 offset-lg-4 col-md-9">
                 <h1 class="display-3 fw-bold">Wir wollen eine Symbiose mit der Natur</h1>
