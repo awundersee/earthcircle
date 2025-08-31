@@ -70,7 +70,7 @@ c) Dokumentiere Dein Ergebnis schriftlich und lege den Code, falls nicht bereits
 Die vollständige Dokumentation in der sowohl der Codeaufbau als auch die Wahl der Frameworks begründet wird, ist über die Prüfungsplattform eingereicht. Im Folgenden ein Überblick wie die Anforderungen erfüllt wurden:
 
 1. Titel: EarthCircle // Slogan: Für einen geschlossenen Kreislauf der Natur
-2. <header>, <nav>, <main>, <footer> gliedern die Seite. Die Navigation ist ein Teil des Headers. Ich hab mich für dieses Beispiel für einen One Pager und dementsprechend ein Menü mit Ankern entschieden, damit die Links nicht ins Leere laufen.
+2. ```<header>```, ```<nav>```, ```<main>```, ```<footer>``` gliedern die Seite. Die Navigation ist ein Teil des Headers. Ich hab mich für dieses Beispiel für einen One Pager und dementsprechend ein Menü mit Ankern entschieden, damit die Links nicht ins Leere laufen.
 3. Das Menü navigiert mit Ankern an die entsprechenden Stellen. Mit der Pseudoklasse :dir(rtl), die von modernen Browsern unterstützt wird, wird die Ausrichtung des Headers sowie der Inhalte entsprechend angepasst.
 4. Die Seite wird durch Bootstrap und das zusätliche Stylesheet (css/style.css) für unterschiedliche Bildschirmbreiten passend dargestellt.
 5. Die Daten werden über eine JSON-Datei mit React geladen, sowie sortier- und durchsuchbar. Damit soll simuliert werden, dass der Datensatz von einem anderen Urheber stammt oder aus einem anderen System integriert wird.
