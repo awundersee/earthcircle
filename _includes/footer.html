@@ -1,9 +1,12 @@
-<footer id="footer" class="position-relative z-1 bg-white">
+ <!-- footer.html -->
+  <footer id="footer" class="position-relative z-1 bg-white">
 
     <section class="px-1 px-sm-2 px-md-3 px-lg-4 px-xl-5 py-3 py-md-4 text-primary">
         <div class="container-fluid">
             <div class="d-flex align-items-center justify-content-between row flex-md-row-reverse">
-                <div class="col-md-4 mb-2 mb-md-0 justify-content-md-end d-flex text-sm-dark"><a href="{{ site.baseurl }}/impressum" class="text-primary text-decoration-none me-1">Impressum</a> | <a href="{{ site.baseurl }}/datenschutz" class="ms-1 text-primary text-decoration-none">Datenschutz</a></div>
+                <div class="col-md-4 mb-2 mb-md-0 justify-content-md-end d-flex text-sm-dark">
+                    <a href="{{ site.baseurl }}/impressum" class="text-primary text-decoration-none me-1">Impressum</a> | <a href="{{ site.baseurl }}/datenschutz" class="ms-1 text-primary text-decoration-none">Datenschutz</a>
+                </div>
                 <div class="col-md-8"><strong>{{ site.title }}</strong> - {{ site.slogan }}</div>
             </div>
         </div>
@@ -15,18 +18,20 @@
                 <div class="row">
                     <div class="col-sm-6 col-md-8 d-flex flex-column flex-lg-row">
                         <div>
-                            <p class="m-0 mb-1 fs-6"><span class="fw-bold">Jetzt folgen</span>:</p>
-                            <div class="social-icon-wrapper text-white">
+                            <p class="mb-1 fs-6"><span class="fw-bold">Jetzt folgen</span>:</p>
+                            <div class="social-icon-wrapper text-white pt-lg-1">
                                 {% include socialIcons.html %}
                             </div>
                         </div>
                         <div class="mt-3 mt-lg-0 ms-lg-5">
-                            <p class="m-0 mb-1 fs-6"><span class="fw-bold">Newsletter abonnieren</span>:</p>
+                            <p class="mb-1 fs-6"><span class="fw-bold">Newsletter abonnieren</span>:</p>
+                            <!-- React-Formular -->
                             <div class="form" data-type="newsletter" data-label="false" data-id="newsletter-footer"></div>
                         </div>
                     </div>
+                    <!-- Navigation -->
                     <div class="col-sm-6 col-md-4">
-                        <nav class="d-flex flex-column align-items-sm-end mt-3 mt-sm-0">
+                        <nav class="mt-3 mt-sm-0 d-flex flex-column align-items-sm-end">
                             <a href="{{ site.baseurl }}/" class="fs-6 text-decoration-none text-white fw-bold">Startseite</a>
                             <a href="{{ site.baseurl }}/co2-emissionen" class="fs-6 text-decoration-none text-white">CO₂-Emissionen</a>
                             <a href="{{ site.baseurl }}/ueber-uns" class="fs-6 text-decoration-none text-white">Über Uns</a>
@@ -43,7 +48,6 @@
 </footer>
 
 <!-- Projekthinweis -->
-
 <section id="footer-notice" class="bg-light position-fixed w-100 disclaimer-wrapper z-0 start-0 end-0 bottom-0">
     <div class="container-fluid">
         <div class="p-lg-4 p-3 ps-md-0 pe-md-0 text-secondary text-center">
@@ -57,10 +61,10 @@
 </section>
 
 <script>
-  window.BASEURL = "{{ site.baseurl }}";
+    window.BASEURL = "{{ site.baseurl }}";
 </script>
 
-<!-- React + ReactDOM + Bootstrap + Chart + Owl Slider (lokal aus libs/) -->
+<!-- React + ReactDOM + Bootstrap + Chart + Swiper -->
 <script src="{{ site.baseurl }}/libs/js/react.development.js"></script>
 <script src="{{ site.baseurl }}/libs/js/react-dom.development.js"></script>
 <script src="{{ site.baseurl }}/libs/js/bootstrap.bundle.min.js"></script>

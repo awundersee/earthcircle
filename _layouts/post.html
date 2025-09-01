@@ -2,12 +2,15 @@
 layout: default
 ---
 
+<!-- post.html -->
+
+<!-- Hero-Banner -->
 <style>
   .hero-banner {background-image:url('{{ page.image | relative_url }}');}
-  @media(max-width:991px) {
-    .hero-banner .c-banner {
-      background-image:url('{{ page.image | relative_url }}');
-    }
+    @media(max-width:991px) {
+      .hero-banner .c-banner {
+        background-image:url('{{ page.image | relative_url }}');
+      }
   }
 </style>
 
@@ -29,11 +32,13 @@ layout: default
     </div>
 </section>
 
-<article class="blog-wrapper bg-white">
+<!-- Inhalt -->
+<article>
     <div class="container-fluid">
         <div class="pt-4 pb-4 p-1 pt-4 pb-4 px-sm-2 px-md-3 p-sm-4">
             <div class="row mb-3 d-flex align-items-start">
-                <div class="col-xl-2 offset-xl-2 col-lg-3 offset-lg-1">
+                <div class="col-lg-3 offset-lg-1 col-xl-2 offset-xl-2">
+                  <!-- Share-Buttons -->
                   <ul class="list-inline social-share-buttons">
                       <li>
                         <a class="text-decoration-none" href="https://twitter.com/intent/tweet?url={{ page.url | absolute_url }}&text={{ page.title | uri_escape }}"
@@ -83,10 +88,11 @@ layout: default
 {% endfor %}
 
 {% if related_count > 0 %}
+<!-- Beiträge aus gleichen Kategorien -->
 <section class="bg-primary bg-opacity-25 pt-4 pb-sm-4 read-more-wrapper">
   <div class="container-fluid">
           <div class="pt-4 pb-4">
-              <div class="row mb-3 d-flex align-items-start p-1 pt-4 pb-4 p-sm-4">
+              <div class="row mb-3 p-1 py-4 p-sm-4 d-flex align-items-start">
                   <div class="col-lg-8 offset-lg-2 col-md-12">  
                     <h2 class="text-primary fw-bold mb-4">Ähnliche Beiträge</h2>
                     <div class="row d-flex flex-wrap align-content-stretch">
@@ -106,7 +112,7 @@ layout: default
                                           {% if post.image %}
                                               <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="preview-img w-100 z-0 rounded-top-3">
                                           {% endif %}
-                                          <div class="start-0 bottom-0 p-3 p-2 position-absolute z-1">
+                                          <div class="start-0 bottom-0 p-3 pb-4 position-absolute z-1">
                                             {% for category in post.categories %}
                                               {% if page.categories contains category %}
                                                 <span class="badge bg-primary text-white fw-normal fs-6">{{ category }}</span>

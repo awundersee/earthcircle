@@ -42,7 +42,8 @@ title: Startseite
     <div class="container-fluid">
         <div class="row mb-3 d-flex align-items-center">
             <div class="col-xxl-7 col-xl-6 col-lg-6 col-md-6 d-flex justify-content-sm-end col-sm-7">
-                <div class="m-1 mt-4 mb-4 m-sm-4">
+                <div class="m-1 my-4 m-sm-4">
+                    <!-- Chart Container -->
                     <div id="circle-container">
                         <canvas id="scrollCircle"></canvas>
                     </div>
@@ -61,7 +62,8 @@ title: Startseite
     <div class="container-fluid">
         <div class="row mb-3 align-items-center">
             <div class="col-xxl-4 col-xl-5 offset-xl-4 col-lg-7 offset-lg-3 col-md-8 offset-md-2 col-sm-9 offset-sm-2 d-flex justify-content-center">
-                <div class="">
+                <!-- Javascript-Scroll-Animation -->
+                <div class="ps-lg-1 ps-xl-2 ps-xxl-3">
                     <h3 class="mt-sm-5 mb-2 fw-bold primary-on-fade"><i class="ph fw-bold ph-wrench"></i>Weniger kaufen, länger nutzen</h3>
                     Repariere Dinge, nutze Second-Hand und entscheide dich bewusst für langlebige Produkte.
                     <h3 class="mt-5 mb-2 fw-bold primary-on-fade"><i class="ph fw-bold ph-fork-knife"></i>Regional & saisonal essen</h3>
@@ -84,11 +86,11 @@ title: Startseite
     <div class="container-fluid text-white position-relative z-2">
         <div class="px-1 px-sm-2 px-md-3 px-lg-4 px-xl-5">
             <div class="row">
-            <div class="col-lg-7 offset-lg-4 col-md-9">
-                <h2 class="display-3 fw-bold">Ohne Wirtschaft wird es schwierig</h2>
-                <p class="lead mb-4">Einen Kreislauf erreichen wir nur gemeinsam mit der Wirtschaft.</p>
-                <a href="{{ site.baseurl }}/co2-emissionen" class="btn btn-dark btn-lg">Mehr über <span class="d-none d-sm-inline">globale</span> CO₂-Emissionen</a>
-            </div>
+                <div class="col-lg-7 offset-lg-4 col-md-9">
+                    <h2 class="display-3 fw-bold">Ohne Wirtschaft wird es schwierig</h2>
+                    <p class="lead mb-4">Einen Kreislauf erreichen wir nur gemeinsam mit der Wirtschaft.</p>
+                    <a href="{{ site.baseurl }}/co2-emissionen" class="btn btn-dark btn-lg">Mehr über <span class="d-none d-sm-inline">globale</span> CO₂-Emissionen</a>
+                </div>
             </div>
         </div>
     </div>

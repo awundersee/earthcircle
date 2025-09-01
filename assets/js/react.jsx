@@ -1,5 +1,54 @@
 const { useState, useEffect } = React;
 
+// Suchleiste
+function Search() {
+  const [filter, setFilter] = React.useState("");
+
+  // Wenn Input geändert wird, Custom Event feuern
+  const handleInput = (e) => {
+    const val = e.target.value;
+    setFilter(val);
+
+    document.getElementById("table").dispatchEvent(
+      new CustomEvent("filterChanged", { detail: val })
+    );
+  };
+
+  // Button klick
+  const handleClick = () => {
+    if (filter.trim() !== "") {
+      setFilter("");
+      document.getElementById("table").dispatchEvent(
+        new CustomEvent("filterChanged", { detail: "" })
+      );
+    }
+  };
+
+  return (
+    <>
+      <label htmlFor="searchInput" className="form-label visually-hidden">
+        Suche nach Firma oder Land
+      </label>
+      <input
+        id="searchInput"
+        type="text"
+        className="form-control"
+        placeholder="Nach Firma oder Land suchen"
+        value={filter}
+        onChange={handleInput}
+      />
+      <button
+        className={`btn btn-sm btn-primary position-absolute end-0 top-0 search-btn ${filter.trim() !== "" ? "active-search" : ""}`}
+        onClick={handleClick}
+      >
+        <i className="ph ph-arrow-right"></i>
+      </button>
+    </>
+  );
+}
+
+
+// Tabelle
 function App() {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState("");
@@ -13,6 +62,20 @@ function App() {
       .then(res => res.json())
       .then(json => setData(json))
       .catch(err => console.error("Fehler beim Laden:", err));
+  }, []);
+
+  // Event Listener für Custom Event
+  useEffect(() => {
+    const tableEl = document.getElementById("table");
+    if (!tableEl) return;
+
+    const handleFilterChanged = (e) => setFilter(e.detail);
+
+    tableEl.addEventListener("filterChanged", handleFilterChanged);
+
+    return () => {
+      tableEl.removeEventListener("filterChanged", handleFilterChanged);
+    };
   }, []);
 
   // Input- und Dropdown-Listener
@@ -41,7 +104,7 @@ function App() {
     input.addEventListener("input", handleInput);
     dropdownItems.forEach(item => item.addEventListener("click", handleDropdownClick));
 
-    // 👉 Initial active setzen (country asc beim ersten Render)
+    // Initial active setzen (country asc beim ersten Render)
     const initActive = Array.from(dropdownItems).find(
       item => item.dataset.key === sortKey && item.dataset.dir === (sortAsc ? "asc" : "desc")
     );
@@ -90,7 +153,7 @@ function App() {
     setSortKey(key);
     setSortAsc(newAsc);
 
-    // Dropdown synchronisieren: nur active
+    // Dropdown synchronisieren
     const dropdownItems = document.querySelectorAll(
       "#sortDropdownButton + .dropdown-menu .dropdown-item"
     );
@@ -104,6 +167,7 @@ function App() {
     }
   };
 
+  // Tabelle ausgeben
   return (
     <table className="table table-striped">
       <thead>
@@ -164,19 +228,22 @@ function App() {
   );
 }
 
-// ----------------- Rendering getrennt -----------------
+// ----------------- Rendering -----------------
+const searchEl = document.querySelector('.search-wrapper');
+if (searchEl) {
+  ReactDOM.createRoot(searchEl).render(<Search />);
+}
 const tableEl = document.getElementById("table");
 if (tableEl) {
   ReactDOM.createRoot(tableEl).render(<App />);
 }
 
 
+// Formulare
 const h = React.createElement;
 
-// Utilities
+// Validierungen
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || "").trim());
-
-// Whitelist-Prüfungen
 const isValidName = (text) => /^[\p{L}\s'-]+$/u.test(String(text || "")); 
 const isValidMessage = (text) =>
   /^[\p{L}\p{N}\s.,!?;:'"()\-@äöüÄÖÜßéèêàáâçñ€$%&/\\]+$/u.test(String(text || ""));
@@ -191,6 +258,7 @@ function FieldWrapper({ children, error }) {
   );
 }
 
+// Formular erstellen
 function CustomForm({ type, formId }) {
 
   const baseurl = window.BASEURL || "";
@@ -231,11 +299,11 @@ function CustomForm({ type, formId }) {
   const validate = () => {
     const newErrors = {};
 
-    // Honeypot: Bot erkannt → still abbrechen
+    // Honeypot-Prüfung
     if (formData.honeypot && String(formData.honeypot).trim() !== "")
       return { honeypot: true };
 
-    // Name nur Mitgliedsantrag & Kontakt
+    // Name nur bei Mitgliedsantrag & Kontakt
     if (type !== "newsletter") {
       if (!String(formData.name).trim()) {
         newErrors.name = "Bitte einen Namen eingeben.";
@@ -244,12 +312,12 @@ function CustomForm({ type, formId }) {
       }
     }
 
-    // E-Mail Pflicht bei allen
+    // E-Mail Pflichtfeld bei allen
     if (!isValidEmail(formData.email)) {
       newErrors.email = "Bitte eine gültige E-Mail eingeben.";
     }
 
-    // Nachricht nur Kontaktformular
+    // Nachricht nur bei Kontaktformular
     if (type === "contact") {
       if (!String(formData.message).trim()) {
         newErrors.message = "Bitte eine Nachricht eingeben.";
@@ -273,6 +341,7 @@ function CustomForm({ type, formId }) {
     setSubmitted(true);
   };
 
+  // Bestätigungsnachricht
   if (submitted) {
     return h(
       "div",
@@ -312,6 +381,7 @@ function CustomForm({ type, formId }) {
       ? "p-3 border rounded-3 mb-4 d-flex flex-wrap justify-content-between align-items-center form-gradient"
       : "mb-4 d-flex flex-wrap justify-content-between align-items-center";
 
+  // Formular ausgeben
   return h(
     "form",
     { className: formClassName, onSubmit: handleSubmit, noValidate: true },
@@ -441,7 +511,7 @@ function CustomForm({ type, formId }) {
     h(
       "button",
       {
-        type: "submit", // hier ggf. unterschiedliche type-Werte
+        type: "submit",
         className: type === "newsletter" 
           ? "btn btn-light text-primary z-1" 
           : "btn btn-primary z-1"

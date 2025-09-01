@@ -3,6 +3,7 @@ const chartContainer = document.querySelector('.chart-container');
 
 if (chartContainer) {
 
+  // Daten laden
   async function loadData() {
     const baseurl = window.BASEURL || "";
     const response = await fetch(`${baseurl}/public/data/data.json`);
@@ -14,8 +15,6 @@ if (chartContainer) {
   function generateBrownColors(n) {
     const colors = [];
     for (let i = 0; i < n; i++) {
-    // Basisfarbe #ce7a00 -> HSL: 33°, 100%, 40%
-    // Wir variieren Helligkeit 35%-60% und Sättigung 80%-100%
     const hue = 33; // braun
     const saturation = 80 + Math.random() * 20;
     const lightness = 35 + Math.random() * 25;
@@ -27,7 +26,7 @@ if (chartContainer) {
   async function createCharts() {
   const data = await loadData();
 
-  // --- Unternehmen ---
+  // Unternehmen
   const companyLabels = data.map(d => d.company);
   const companyPercentages = data.map(d => d.percentage);
 
@@ -38,6 +37,7 @@ if (chartContainer) {
 
   const companyColors = [...generateBrownColors(companyLabels.length - 1), 'lightgray'];
 
+  // Diagramm erstellen
   const ctx1 = document.getElementById('companyChart').getContext('2d');
   new Chart(ctx1, {
   type: 'doughnut',
@@ -57,7 +57,7 @@ if (chartContainer) {
   }
   });
 
-  // --- Länder ---
+  // Länder
   const countryData = {};
   data.forEach(d => {
   if (!countryData[d.country]) countryData[d.country] = 0;
@@ -74,6 +74,7 @@ if (chartContainer) {
 
   const countryColors = [...generateBrownColors(countryLabels.length - 1), 'lightgray'];
 
+  // Diagramm erstellen
   const ctx2 = document.getElementById('countryChart').getContext('2d');
   new Chart(ctx2, {
   type: 'doughnut',
@@ -103,7 +104,7 @@ const swiperContainer = document.querySelector('.mySwiper');
 if (swiperContainer) {
 
   const swiper = new Swiper(".mySwiper", {
-    slidesPerView: 3.1,     // 3 volle Cards + Peek der 4. Card
+    slidesPerView: 3.1,
     spaceBetween: 20,
     autoHeight: false,
     loop: false,
@@ -112,18 +113,19 @@ if (swiperContainer) {
       prevEl: ".swiper-prev",
     },
     breakpoints: {
-      992: { slidesPerView: 3.1 },   // Desktop
-      768: { slidesPerView: 2.2 },   // Tablet
-      576: { slidesPerView: 1.2 },   // Mobile
-      0:   { slidesPerView: 1.1 }    // Sehr kleine Screens
+      992: { slidesPerView: 3.1 },
+      768: { slidesPerView: 2.2 },
+      576: { slidesPerView: 1.2 },
+      0:   { slidesPerView: 1.1 }
     },
   });
 
+  // Swiper Navigation ermitteln und erstellen
   function updateNavClasses(swiperInstance) {
     const prevBtn = document.querySelector('.swiper-prev');
     const nextBtn = document.querySelector('.swiper-next');
 
-    if (!prevBtn || !nextBtn) return; // Buttons existieren evtl. nicht
+    if (!prevBtn || !nextBtn) return;
 
     if (swiperInstance.isBeginning) {
       prevBtn.classList.add('disabled');
@@ -150,7 +152,7 @@ function marginFooter() {
 window.addEventListener("resize", marginFooter);
 marginFooter();
 
-// Prüfen, ob das Chart-Element existiert
+// Prüfen, ob das Chart-Element existiert und erstellen
 const circleContainer = document.getElementById('circle-container');
 const scrollCircle = document.getElementById('scrollCircle');
 const colorSwitchEl = document.getElementById('color-switch');
@@ -164,7 +166,7 @@ if (scrollCircle) {
     type: 'doughnut',
     data: {
       datasets: [{
-        data: [100, 0], // Start voll
+        data: [100, 0],
         backgroundColor: ['#d8d8d8', '#ce7a00'],
         borderWidth: 0
       }]
@@ -210,6 +212,7 @@ function updateChart(progress) {
   scrollChart.update();
 }
 
+// Scroll-Effekt beim Diagramm
 function onScroll() {
   if (!circleContainer) return;
 
@@ -233,7 +236,8 @@ function onScroll() {
 
 if (circleContainer) {
   window.addEventListener('scroll', onScroll);
-  onScroll(); // initial
+  window.addEventListener('resize', onScroll);
+  onScroll();
 }
 
 // Fade-In Effekt
@@ -257,7 +261,7 @@ function handleScrollFade() {
 if (fadeIns.length) {
   window.addEventListener("scroll", handleScrollFade);
   window.addEventListener("resize", handleScrollFade);
-  handleScrollFade(); // initial
+  handleScrollFade();
 }
 
 const halfActiveEls = document.querySelectorAll(".active-on-half");
@@ -271,7 +275,6 @@ function handleScrollHalfActive() {
     const elementMid = rect.top + rect.height / 2;
 
     if (elementMid >= 0 && elementMid <= viewportHeight) {
-      // Element-Mitte ist im Viewport
       if (Math.abs(elementMid - midpoint) < rect.height / 2) {
         el.classList.add("is-active");
       } else {
@@ -286,51 +289,50 @@ function handleScrollHalfActive() {
 if (halfActiveEls.length) {
   window.addEventListener("scroll", handleScrollHalfActive);
   window.addEventListener("resize", handleScrollHalfActive);
-  handleScrollHalfActive(); // Initial aufrufen
+  handleScrollHalfActive();
 }
 
+// Counter-Effekt
 const counters = document.querySelectorAll(".counter");
 
-  if (counters.length > 0) {
-    const formatNumber = (num) =>
-      num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+if (counters.length > 0) {
+  const formatNumber = (num) =>
+    num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
-    const animateCounter = (el) => {
-      const target = parseInt(el.dataset.number, 10) || 0;
-      let current = 0;
+  const animateCounter = (el) => {
+    const target = parseInt(el.dataset.number, 10) || 0;
+    let current = 0;
 
-      // Dynamische Dauer: kleine Zahlen länger, große kürzer – max. 1000ms
-      // Beispiel: 100 → ~1000ms, 1000 → ~700ms, 100000 → ~200ms
-      const duration = Math.max(200, 1000 - Math.log10(target + 1) * 150);
+    const duration = Math.max(200, 1000 - Math.log10(target + 1) * 150);
 
-      const startTime = performance.now();
+    const startTime = performance.now();
 
-      const step = (now) => {
-        const progress = Math.min((now - startTime) / duration, 1);
-        current = Math.floor(progress * target);
-        el.textContent = formatNumber(current);
+    const step = (now) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      current = Math.floor(progress * target);
+      el.textContent = formatNumber(current);
 
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        } else {
-          el.textContent = formatNumber(target);
-        }
-      };
-
-      requestAnimationFrame(step);
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = formatNumber(target);
+      }
     };
 
-    const observer = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animateCounter(entry.target);
-            obs.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.33 }
-    );
+    requestAnimationFrame(step);
+  };
 
-    counters.forEach((counter) => observer.observe(counter));
-  }
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.33 }
+  );
+
+  counters.forEach((counter) => observer.observe(counter));
+}

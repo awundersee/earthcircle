@@ -8,6 +8,7 @@ permalink: blog
     <div class="px-1 px-sm-2 px-md-3 px-lg-4 px-xl-5 py-3 py-md-4 pt-4 pt-md-0">
         <div class="container-fluid blog-wrapper">
             <div class="row d-flex align-items-strech flex-wrap">
+                 <!-- Blogbeiträge -->
                 {% for post in site.posts %}
                     <div class="col-lg-4 col-md-6 mb-5">
                         <a href="{{ post.url | relative_url }}" class="text-decoration-none text-primary d-flex flex-column">
@@ -28,7 +29,7 @@ permalink: blog
                                     <p class="text-dark">{{ post.excerpt }}</p>
                                 </div>
                             </div>
-                            <span class="text-decoration-underline ps-2 pe-3">Weiterlesen</span>
+                            <span class="text-decoration-underline px-2">Weiterlesen</span>
                         </a>
                     </div>
                 {% endfor %}
