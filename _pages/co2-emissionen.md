@@ -13,7 +13,7 @@ permalink: co2-emissionen
                 <div class="col-lg-7 offset-lg-4 col-md-10">
                     <h2 class="display-3 small-xs-display fw-bold">Es ist noch ein weiter Weg zum Kreislauf</h2>
                     <p class="lead mb-4">Wir wollen nicht mit dem Finger auf die Wirtschaft zeigen, sondern Potentiale für eine Kreislaufwirschaft aufzeigen.</p>
-                    <a href="{{ site.baseurl }}/ueber-uns" class="btn btn-primary btn-lg">Was Du tun kannst</a>
+                    <a href="{{ site.baseurl }}/ueber-uns#mitgliedsantrag" class="btn btn-primary btn-lg">Unterstütze uns dabei</a>
                 </div>
             </div>
         </div>

@@ -89,7 +89,7 @@ title: Startseite
                 <div class="col-lg-7 offset-lg-4 col-md-9">
                     <h2 class="display-3 fw-bold">Ohne Wirtschaft wird es schwierig</h2>
                     <p class="lead mb-4">Einen Kreislauf erreichen wir nur gemeinsam mit der Wirtschaft.</p>
-                    <a href="{{ site.baseurl }}/co2-emissionen" class="btn btn-dark btn-lg">Mehr über <span class="d-none d-sm-inline">globale</span> CO₂-Emissionen</a>
+                    <a href="{{ site.baseurl }}/co2-emissionen" class="btn btn-primary btn-lg">Mehr über <span class="d-none d-sm-inline">globale</span> CO₂-Emissionen</a>
                 </div>
             </div>
         </div>
