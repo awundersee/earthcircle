@@ -6,10 +6,10 @@ title: Startseite
 <section class="hero-banner hero-start d-flex mobile-hero">
     <div class="c-banner c-banner-start d-lg-block z-1 position-absolute top-0 bottom-0 start-0 end-0"></div>
     <div class="container-fluid text-white position-relative align-items-end justify-content-end z-2">
-        <div class="mx-1 mx-sm-2 mx-md-3 mx-lg-4 mx-xl-5 my-3 my-md-4">
+        <div class="mx-1 mx-sm-2 mx-md-3 mx-lg-4 mx-xl-5 my-3 my-md-4 py-3 py-sm-0">
             <div class="row">
                 <div class="col-lg-7 offset-lg-4 col-md-10">
-                    <h2 class="display-3 fw-bold">Wir wollen den Kreis schließen</h2>
+                    <h2 class="display-3 small-xs-display fw-bold">Wir wollen den Kreis schließen</h2>
                     <p class="lead mb-4">Wir versuchen durch die Auswertung von Daten Potentiale sichtbar zu machen, um eine nachhaltige, globale Kreislaufwirtschaft zu etabilieren: Ein Kreislauf für die Natur und unsere Zukunft.</p>
                     <a href="{{ site.baseurl }}/ueber-uns" class="btn btn-primary btn-lg">Über uns</a>
                 </div>
@@ -19,7 +19,7 @@ title: Startseite
 </section>
 
 <section class="px-1 px-sm-2 px-md-3 px-lg-4 px-xl-5 py-5">
-    <div class="container-fluid">
+    <div class="container-fluid pt-lg-4">
         <div class="row d-flex align-items-end">
             <div class="col-lg-6 col-md-12">
                 <div class="">

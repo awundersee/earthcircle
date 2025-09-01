@@ -741,9 +741,9 @@ footer .invalid-feedback {
 	    --bs-btn-font-size: 1.2rem;
 	}
 
-	.display-3 {
+	.small-xs-display.display-3 {
 		line-height: 1.2;
-		font-size: calc(1.2rem + 3.3vw);
+		font-size: calc(1.325rem + .9vw);
 	}
 
 	.mobile-hero .c-banner {

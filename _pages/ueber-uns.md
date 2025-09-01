@@ -8,10 +8,10 @@ permalink: ueber-uns
     <div class="c-banner d-lg-block z-1 position-absolute top-0 bottom-0 start-0 end-0"></div>
     <div class="bg-banner d-none d-sm-block position-absolute top-0 bottom-0 start-0 end-0 bg-black bg-opacity-50 z-2 z-lg-0"></div>
     <div class="container-fluid text-white position-relative align-items-end justify-content-end z-2">
-      <div class="mx-1 mx-sm-2 mx-md-3 mx-lg-4 mx-xl-5 my-3 my-md-4">
+        <div class="mx-1 mx-sm-2 mx-md-3 mx-lg-4 mx-xl-5 my-3 my-md-4 py-3 py-sm-0">
             <div class="row">
                 <div class="col-lg-7 offset-lg-4 col-md-10">
-                    <h2 class="display-3 fw-bold">Gemeinsam können wir es schaffen</h2>
+                    <h2 class="display-3 small-xs-display fw-bold">Gemeinsam können wir es schaffen</h2>
                     <p class="lead mb-4">Wir sind eine Gruppe mit dezentral organisierten Akteuren aus der Gesellschaft, Politik und Wirtschaft. Wenn Du Dich einbringen möchtest, <a href="{{ site.baseurl }}/kontakt" class="text-white">melde Dich bei uns.</a></p>
                     <a href="#mitgliedsantrag" class="btn btn-primary btn-lg">Werde Teil des Inner Circle</a>
                 </div>
